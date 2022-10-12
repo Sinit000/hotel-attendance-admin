@@ -179,17 +179,15 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
       yield AddingLeave();
       try {
         await leaveRepository.editleaveStatus(
-            id: event.id, status: event.status);
+            id: event.id, status: event.status, deduction: event.deduction);
         yield AddedLeave();
         yield FetchingLeave();
-        print(leavemodel.length);
+
         page = 1;
         leavemodel.clear();
-        print(leavemodel.length);
+
         dateRange = "This week";
         setEndDateAndStartDate();
-        print(startDate);
-        print(endDate);
 
         // Future.delayed(Duration(milliseconds: 200));
         // page = 1;
@@ -199,9 +197,9 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
             startDate: startDate!,
             endDate: endDate!);
         leavemodel.addAll(leaveList);
-        print(leaveList.length);
+
         page++;
-        print(leaveList.length);
+
         yield FetchedLeave();
       } catch (e) {
         log(e.toString());

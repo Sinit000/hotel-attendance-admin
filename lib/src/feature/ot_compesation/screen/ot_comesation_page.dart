@@ -46,16 +46,9 @@ class _BodyState extends State<Body> {
   OTCompesationBloc _otCompesationBloc = OTCompesationBloc();
   @override
   void initState() {
-    _otCompesationBloc.add(InitializeOTCompesationStarted(
-        dateRange: "This month", isSecond: false));
+    _otCompesationBloc.add(
+        InitializeOTCompesationStarted(dateRange: mydateRage, isSecond: false));
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _otCompesationBloc.close();
   }
 
   @override
@@ -119,7 +112,7 @@ class _BodyState extends State<Body> {
                               });
                               _otCompesationBloc.add(
                                   InitializeOTCompesationStarted(
-                                      dateRange: "This month", isSecond: true));
+                                      dateRange: mydateRage, isSecond: true));
                             }
                           },
                         ),
@@ -466,8 +459,10 @@ class _BodyState extends State<Body> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
+                              print(overtime.id);
                               _otCompesationBloc.add(UpdateOTCompesationStarted(
-                                  id: overtime.id, status: "approved"));
+                                  id: int.parse(overtime.id),
+                                  status: "approved"));
                             },
                             child: Text(
                               "Aprove",
@@ -493,8 +488,10 @@ class _BodyState extends State<Body> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
+                              print(overtime.id);
                               _otCompesationBloc.add(UpdateOTCompesationStarted(
-                                  id: overtime.id, status: "rejected"));
+                                  id: int.parse(overtime.id),
+                                  status: "rejected"));
                             },
                             child: Text(
                               "Reject",
@@ -586,5 +583,11 @@ class _BodyState extends State<Body> {
             ),
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _otCompesationBloc.close();
   }
 }

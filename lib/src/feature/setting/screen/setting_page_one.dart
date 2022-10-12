@@ -56,10 +56,10 @@ class _SettingPageState extends State<SettingPage> {
             SizedBox(
               height: 10,
             ),
-            settingitem(name: "Theme", icon: Icons.dark_mode, onPressed: () {}),
-            SizedBox(
-              height: 10,
-            ),
+            // settingitem(name: "Theme", icon: Icons.dark_mode, onPressed: () {}),
+            // SizedBox(
+            //   height: 10,
+            // ),
           ],
         ));
   }

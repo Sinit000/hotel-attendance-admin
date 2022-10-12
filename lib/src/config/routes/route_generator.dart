@@ -42,6 +42,7 @@ import 'package:hotle_attendnce_admin/src/feature/overtime/screen/add_overtime.d
 import 'package:hotle_attendnce_admin/src/feature/overtime/screen/edit_overtime.dart';
 import 'package:hotle_attendnce_admin/src/feature/overtime/screen/overtime_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/payslip/screen/add_payslip.dart';
+import 'package:hotle_attendnce_admin/src/feature/payslip/screen/payslip_component.dart';
 import 'package:hotle_attendnce_admin/src/feature/payslip/screen/payslip_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/permission/screen/approve_board.dart';
 import 'package:hotle_attendnce_admin/src/feature/permission/screen/leave_page.dart';
@@ -143,6 +144,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DayOffPage());
       case otcompesation:
         return MaterialPageRoute(builder: (_) => OTCompesation());
+       case configuration:
+        return MaterialPageRoute(builder: (_) => PayslipComponent());
       case addWorkingday:
         return MaterialPageRoute(builder: (_) => AddWorkingDay());
       case group:

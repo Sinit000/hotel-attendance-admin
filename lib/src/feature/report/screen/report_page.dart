@@ -9,21 +9,7 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: standardAppBar(context, "Report page"),
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     color: Colors.black,
-      //     icon: Icon(Icons.arrow_back_outlined),
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      //   centerTitle: true,
-      //   title: Text(
-      //     "Report",
-      //     textScaleFactor: 1.2,
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
+      
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: ListView(

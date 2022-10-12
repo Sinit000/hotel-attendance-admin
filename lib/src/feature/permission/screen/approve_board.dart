@@ -15,7 +15,7 @@ class _ApproveBoardState extends State<ApproveBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.2),
-      appBar: standardAppBar(context, "Approve Leave"),
+      appBar: standardAppBar(context, "Approve Board"),
       body: Container(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -46,7 +46,7 @@ class _ApproveBoardState extends State<ApproveBoard> {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(15)),
                   child: Text(mylist[index]),
                 ),

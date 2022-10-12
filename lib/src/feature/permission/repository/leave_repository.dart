@@ -28,14 +28,13 @@ class LeaveRepository {
   // }
 
   Future<List<LeaveModel>> getleave(
-      {
-        required int page, 
-        required int rowperpage,
-         required String startDate,
-        required String endDate
-        }) async {
+      {required int page,
+      required int rowperpage,
+      required String startDate,
+      required String endDate}) async {
     try {
-      String url = mainUrl + "leaves?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
+      String url = mainUrl +
+          "leaves?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       Response response = await apiProvider.get(url, null, null);
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -125,11 +124,12 @@ class LeaveRepository {
   Future<void> editleaveStatus({
     required String id,
     required String status,
+    required String deduction,
   }) async {
     try {
       String url = mainUrl + "leaves/edit/$id";
       Map body = {
-        // "type": "company",
+        "leave_deduction": deduction,
         "status": status,
       };
       Response response = await apiProvider.put(url, body);

@@ -1,4 +1,3 @@
-
 import 'package:hotle_attendnce_admin/src/feature/report/model/report_model.dart';
 import 'package:hotle_attendnce_admin/src/utils/share/app_constant.dart';
 import 'package:meta/meta.dart';
@@ -22,3 +21,12 @@ class ErrorFetchedReport extends ReportState with ErrorState {
   final dynamic error;
   ErrorFetchedReport({@required this.error});
 }
+class EndOfReportList extends ReportState{}
+
+class InitailizingDailyReport extends ReportState {}
+
+class InitailizedDailyReport extends ReportState {}
+
+class FetchingDailyReport extends ReportState {}
+
+class FetchedDailyReport extends ReportState {}

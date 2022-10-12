@@ -3,7 +3,7 @@
     "myinfo":"My Info",
     "attendance":"Attendance",
     "leave":"Leave",
-    "permission":"Permission",
+    "permission":"Leave",
     "add_leave":"Add leave",
     "edit_leave":"Edit leave",
     "report":"Report",
@@ -151,11 +151,11 @@
     "structure_type":"Structure type",
     "add_structure_type":"Add Structure type",
     "edit_structure_type":"Edit Structure type",
-    "configuration":"Configuration",
+    "configuration":"Payslip",
     "dashboard":"Dashboard",
     "approve_board":"Approve Board",
     "leave_out":"Leave out",
-    "ot_compesation":"OT Compesation",
+    "ot_compesation":"OT Compensation",
     "change_dayOff":"Change Dayoff"
     
 

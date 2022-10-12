@@ -145,20 +145,7 @@ class _BodyState extends State<Body> {
               employeeBloc.add(RefreshEmployeeStarted());
             },
             onLoading: () {
-              if (employeeBloc.state is EndofEmployeeList) {
-                _refreshController.loadNoData();
-              } else {
-                employeeBloc.add(FetchEmloyeeStarted());
-              }
-
-              // _refreshController.loadComplete();
-              // if (BlocProvider.of<EmployeeBloc>(context).state
-              //     is EndofEmployeeList) {
-              // } else {
-              //  BlocProvider.of<EmployeeBloc>(context)
-              //     .add(FetchEmloyeeStarted());
-              // }
-              // BlocProvider.of<LeaveBloc>(context).add(FetchLeaveStarted());
+              employeeBloc.add(FetchEmloyeeStarted());
             },
             enablePullDown: true,
             enablePullUp: true,

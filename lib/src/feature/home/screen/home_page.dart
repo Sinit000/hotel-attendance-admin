@@ -14,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     final List<Map> homeMenu = [
@@ -48,11 +46,9 @@ class _HomePageState extends State<HomePage> {
         "iconColor": Colors.blue,
         "image": "assets/blackIcon/clock1.png",
         "onPressed": () {
-          Navigator.pushNamed(context, approveBaord  );
+          Navigator.pushNamed(context, approveBaord);
         }
       },
-     
-
       {
         "name": "${AppLocalizations.of(context)!.translate("ot")!}",
         "iconColor": Colors.blue,
@@ -66,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         "iconColor": Colors.blue,
         "image": "assets/blackIcon/money.png",
         "onPressed": () {
-          Navigator.pushNamed(context, payslip);
+          Navigator.pushNamed(context, configuration);
         }
       },
       {
@@ -86,10 +82,8 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, operation);
         }
       },
-     
     ];
 
-   
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(double.infinity, 100),
@@ -138,7 +132,6 @@ class _HomePageState extends State<HomePage> {
                         name: homeMenu[index]["name"],
                         image: homeMenu[index]["image"],
                         onPressed: homeMenu[index]["onPressed"]),
-                    
                     itemCount: homeMenu.length,
                   ),
                 );

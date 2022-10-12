@@ -105,11 +105,7 @@ class _BodyState extends State<Body> {
                   // BlocProvider.of<TimetableBloc>(context).add(RefreshTimetableStarted());
                 },
                 onLoading: () {
-                  if (employeeBloc.state is EndofEmployeeList) {
-                    _refreshController.loadNoData();
-                  } else {
-                    employeeBloc.add(FetchEmloyeeStarted());
-                  }
+                  employeeBloc.add(FetchEmloyeeStarted());
                 },
                 enablePullDown: true,
                 enablePullUp: true,
@@ -133,77 +129,6 @@ class _BodyState extends State<Body> {
             ),
           );
         });
-    return BlocConsumer(
-      bloc: employeeBloc,
-      listener: (context, state) {
-        if (state is ErrorFetchingEmployee) {
-          Helper.handleState(state: state.error, context: context);
-        }
-        if (state is FetchedEmployee) {
-          _refreshController.loadComplete();
-          _refreshController.refreshCompleted();
-        }
-        if (state is EndofEmployeeList) {
-          _refreshController.loadNoData();
-        }
-        // if (state is AddingCheckin) {
-        //   EasyLoading.show(status: "loading....");
-        // }
-        // if (state is ErrorAddingCheckInOut) {
-        //   EasyLoading.dismiss();
-        //   EasyLoading.showToast(state.error.toString());
-        // }
-        // if (state is AddedCheckin) {
-        //   EasyLoading.dismiss();
-        //   EasyLoading.showSuccess("Sucess");
-        //   // BlocProvider.of<EmployeeBloc>(context).add(RefreshEmployeeStarted());
-        // }
-      },
-      builder: (context, state) {
-        if (state is InitializingEmployee) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is ErrorFetchingEmployee) {
-          return Center(
-            child: Text(state.error.toString()),
-          );
-        } else {
-          return SmartRefresher(
-            onRefresh: () {
-              employeeBloc.add(RefreshEmployeeStarted());
-
-              // BlocProvider.of<TimetableBloc>(context).add(RefreshTimetableStarted());
-            },
-            onLoading: () {
-              if (employeeBloc.state is EndofEmployeeList) {
-                _refreshController.loadNoData();
-              } else {
-                employeeBloc.add(FetchEmloyeeStarted());
-              }
-            },
-            enablePullDown: true,
-            enablePullUp: true,
-            cacheExtent: 1,
-            controller: _refreshController,
-            child: SingleChildScrollView(
-              child: Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    children: [
-                      ...employeeBloc.emploList.map((e) => AttendanceTile(
-                            employeeModel: e,
-                          ))
-                    ],
-                  )),
-            ),
-          );
-        }
-      },
-    );
+   
   }
 }

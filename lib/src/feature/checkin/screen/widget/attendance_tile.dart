@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -60,13 +61,21 @@ class _AttendanceTileState extends State<AttendanceTile> {
                     //     "assets/icon/avartar.png"),
                     child: widget.employeeModel.img == null
                         ? Image.asset("assets/icon/avartar.png")
-                        : FadeInImage.assetNetwork(
-                            placeholder: "assets/icon/avartar.png",
-                            // imageCacheHeight: 80,
-                            // imageCacheWidth: 80,
-                            image:
-                                "https://banban-hr.herokuapp.com/${widget.employeeModel.img}",
-                            fit: BoxFit.fill,
+                        : Container(
+                            color: Colors.grey[350],
+                            child: ExtendedImage.network(
+                              widget.employeeModel.img!,
+                              // err: Container(
+                              //   child: Image.asset("assets/img/store/shop-hint.jpg"),
+                              // ),
+                              cacheWidth: 1000,
+                              // cacheHeight: 400,
+                              enableMemoryCache: true,
+                              clearMemoryCacheWhenDispose: true,
+                              clearMemoryCacheIfFailed: false,
+                              fit: BoxFit.fill,
+                              width: double.infinity,
+                            ),
                           )
                     // CachedNetworkImage(
                     //     imageUrl:

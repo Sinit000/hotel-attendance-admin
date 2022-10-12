@@ -34,7 +34,7 @@ class OTCompesationRepository {
   }
 
   Future<void> editOTCompesation(
-      {required String id, required String status}) async {
+      {required int id, required String status}) async {
     try {
       String url = mainUrl + "overtimes/compesations/edit/$id";
       Map body = {

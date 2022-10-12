@@ -84,9 +84,10 @@ class CheckInOutRepository {
       throw e;
     }
   }
-  Future<void> markAbsent(
-      {required String userId,
-      }) async {
+
+  Future<void> markAbsent({
+    required String userId,
+  }) async {
     try {
       String url = mainUrl + "absents/add";
       Map body = {

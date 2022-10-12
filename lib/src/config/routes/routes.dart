@@ -28,6 +28,7 @@ const String approveBaord = '/approveBaord';
 const String leaveout = '/leaveout';
 const String otcompesation = '/otcompesation';
 const String dayoff = '/dayoff';
+const String configuration = '/configuration';
 
 const String addHoliday = '/addHoliday';
 const String addNotification = '/addNotification';

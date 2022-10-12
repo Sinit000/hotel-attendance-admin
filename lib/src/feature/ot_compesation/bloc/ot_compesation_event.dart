@@ -60,7 +60,7 @@ class AddOTCompesationStarted extends OTCompesationEvent {
 }
 
 class UpdateOTCompesationStarted extends OTCompesationEvent {
-  final String id;
+  final int id;
 
   final String status;
   

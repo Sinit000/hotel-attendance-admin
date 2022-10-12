@@ -22,14 +22,14 @@ class _OperationPageState extends State<OperationPage> {
   @override
   Widget build(BuildContext context) {
     final List<Map> homeMenu = [
-      {
-        "name": "${AppLocalizations.of(context)!.translate("qr")!}",
-        "iconColor": Colors.redAccent[200],
-        "image": "assets/icon/qr-logo.png",
-        "onPressed": () {
-          Navigator.pushNamed(context, qr);
-        }
-      },
+      // {
+      //   "name": "${AppLocalizations.of(context)!.translate("qr")!}",
+      //   "iconColor": Colors.redAccent[200],
+      //   "image": "assets/icon/qr-logo.png",
+      //   "onPressed": () {
+      //     Navigator.pushNamed(context, qr);
+      //   }
+      // },
       {
         "name": "${AppLocalizations.of(context)!.translate("location")!}",
         "iconColor": Colors.purple[300],
@@ -110,14 +110,14 @@ class _OperationPageState extends State<OperationPage> {
           Navigator.pushNamed(context, setting);
         }
       },
-      {
-        "name": "${AppLocalizations.of(context)!.translate("export")!}",
-        "iconColor": Colors.redAccent[200],
-        "image": "assets/icon/export.png",
-        "onPressed": () {
-          dialogExport(context);
-        }
-      },
+      // {
+      //   "name": "${AppLocalizations.of(context)!.translate("export")!}",
+      //   "iconColor": Colors.redAccent[200],
+      //   "image": "assets/icon/export.png",
+      //   "onPressed": () {
+      //     dialogExport(context);
+      //   }
+      // },
     ];
 
     // BlocProvider.of<AccountBloc>(context).add(FetchAccountStarted());

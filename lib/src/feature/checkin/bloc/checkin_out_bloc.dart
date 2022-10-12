@@ -99,23 +99,22 @@ class CheckInOutBloc extends Bloc<CheckInOutEvent, CheckInOutState> {
             checkoutTime: event.checkoutTime,
             employeeId: event.employeeId);
         yield AddedCheckin();
-        yield FetchingCheckin();
+        // yield FetchingCheckin();
 
-        checkilist.clear();
-        checkilist = await checkInOutRepository.getcheckin(
-            page: 1, rowperpage: rowperpage);
-        yield FetchedCheckin();
+        // checkilist.clear();
+        // checkilist = await checkInOutRepository.getcheckin(
+        //     page: 1, rowperpage: rowperpage);
+        // yield FetchedCheckin();
       } catch (e) {
         log(e.toString());
         yield ErrorAddingCheckInOut(error: e.toString());
       }
     }
-    if(event is MarkAbsentStarted){
-       yield AddingCheckin();
+    if (event is MarkAbsentStarted) {
+      yield AddingCheckin();
       try {
         await checkInOutRepository.markAbsent(userId: event.userId);
         yield AddedCheckin();
-       
       } catch (e) {
         log(e.toString());
         yield ErrorAddingCheckInOut(error: e.toString());

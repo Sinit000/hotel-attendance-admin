@@ -64,7 +64,9 @@ class UpdateLeaveStarted extends LeaveEvent {
 class UpdateLeaveStatusStarted extends LeaveEvent {
   final String id;
   final String status;
-  UpdateLeaveStatusStarted({required this.id, required this.status});
+  final String deduction;
+  UpdateLeaveStatusStarted(
+      {required this.id, required this.status, required this.deduction});
 }
 
 class DeleteLeaveStarted extends LeaveEvent {

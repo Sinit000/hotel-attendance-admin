@@ -1,3 +1,5 @@
+import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_model.dart';
+
 class ReportModel {
   final String? late;
   final String? overtime;
@@ -25,3 +27,4 @@ class ReportModel {
       required this.absent,
       required this.employee});
 }
+
