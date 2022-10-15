@@ -156,7 +156,18 @@
     "approve_board":"Approve Board",
     "leave_out":"Leave out",
     "ot_compesation":"OT Compensation",
-    "change_dayOff":"Change Dayoff"
+    "change_dayOff":"Change Dayoff",
+    "join_date":"Join Date",
+    "total_earning" : "Total Earning",
+    "employee_report":"Employee Report",
+    "attendance_Report":"Attendance Report",
+    "overtime_report":"Overtime Report",
+    "leave_report" : "Leave Report",
+    "type_display" : "Type",
+    "request_date":"Request Date"
+   
+    
+    
     
 
 

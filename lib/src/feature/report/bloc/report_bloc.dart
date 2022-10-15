@@ -24,7 +24,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   String? endDate;
   List<EmployeeReportModel> reportEmployee = [];
   List<LeaveReportModel> reportLeave = [];
+  // List<LeaveReportModel> leaveEmployee = [];
   List<OvertimeReportModel> reportovertime = [];
+  List<OvertimeReportModel> reportOTEmployee = [];
   List<AttendanceReportModel> reportAttendance = [];
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
@@ -103,6 +105,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         if (event.isRefresh == true || event.isSecond == true) {
           yield FetchedDailyReport();
         } else {
+          print(reportEmployee.length);
           yield InitailizedDailyReport();
         }
       } catch (e) {
@@ -137,17 +140,30 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       try {
         page = 1;
         reportLeave.clear();
+        // leaveEmployee.clear();
 
         dateRange = event.dateRange;
         setEndDateAndStartDate();
-
         List<LeaveReportModel> leaveList =
             await _reportRepository.getLeaveReport(
+                id: event.id!,
                 page: page,
                 rowperpage: rowperpage,
                 startDate: startDate!,
                 endDate: endDate!);
         reportLeave.addAll(leaveList);
+        // if (event.id == "0") {
+        //   List<LeaveReportModel> leaveList =
+        //       await _reportRepository.getLeaveReport(
+        //           id: event.id!,
+        //           page: page,
+        //           rowperpage: rowperpage,
+        //           startDate: startDate!,
+        //           endDate: endDate!);
+        //   reportLeave.addAll(leaveList);
+        // } else {
+
+        // }
 
         page++;
         if (event.isRefresh == true || event.isSecond == true) {
@@ -165,6 +181,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         dateRange = event.dateRange;
         setEndDateAndStartDate();
         List<LeaveReportModel> _emp = await _reportRepository.getLeaveReport(
+            id: event.id!,
             page: page,
             rowperpage: rowperpage,
             startDate: startDate!,
@@ -192,6 +209,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
         List<OvertimeReportModel> _em =
             await _reportRepository.getOvertimeReport(
+                id: event.id!,
                 page: page,
                 rowperpage: rowperpage,
                 startDate: startDate!,
@@ -215,11 +233,64 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         setEndDateAndStartDate();
         List<OvertimeReportModel> _emp =
             await _reportRepository.getOvertimeReport(
+                id: event.id!,
                 page: page,
                 rowperpage: rowperpage,
                 startDate: startDate!,
                 endDate: endDate!);
         reportovertime.addAll(_emp);
+        page++;
+        if (_emp.length < rowperpage) {
+          yield EndOfReportList();
+        } else {
+          yield FetchedDailyReport();
+        }
+      } catch (e) {
+        yield ErrorFetchedReport(error: e.toString());
+      }
+    }
+    // employee
+    if (event is InitailizeOTEmployeeStarted) {
+      yield InitailizingDailyReport();
+      try {
+        page = 1;
+        reportOTEmployee.clear();
+
+        dateRange = event.dateRange;
+        setEndDateAndStartDate();
+
+        List<OvertimeReportModel> _em =
+            await _reportRepository.getOvertimeReport(
+                id: event.id!,
+                page: page,
+                rowperpage: rowperpage,
+                startDate: startDate!,
+                endDate: endDate!);
+        reportOTEmployee.addAll(_em);
+
+        page++;
+        if (event.isRefresh == true || event.isSecond == true) {
+          yield FetchedDailyReport();
+        } else {
+          yield InitailizedDailyReport();
+        }
+      } catch (e) {
+        yield ErrorFetchedReport(error: e.toString());
+      }
+    }
+    if (event is FetchOTEmployeeStarted) {
+      yield FetchingDailyReport();
+      try {
+        dateRange = event.dateRange;
+        setEndDateAndStartDate();
+        List<OvertimeReportModel> _emp =
+            await _reportRepository.getOvertimeReport(
+                id: event.id!,
+                page: page,
+                rowperpage: rowperpage,
+                startDate: startDate!,
+                endDate: endDate!);
+        reportOTEmployee.addAll(_emp);
         page++;
         if (_emp.length < rowperpage) {
           yield EndOfReportList();

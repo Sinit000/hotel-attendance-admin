@@ -49,7 +49,9 @@ import 'package:hotle_attendnce_admin/src/feature/permission/screen/leave_page.d
 import 'package:hotle_attendnce_admin/src/feature/position/screen/add_position.dart';
 import 'package:hotle_attendnce_admin/src/feature/position/screen/position_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/qrcode/screen/qr_page.dart';
+import 'package:hotle_attendnce_admin/src/feature/report/screen/employee_report_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/report_page.dart';
+import 'package:hotle_attendnce_admin/src/feature/report/screen/report_with_dashboard.dart';
 import 'package:hotle_attendnce_admin/src/feature/setting/screen/operation_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/setting/screen/setting_page_one.dart';
 import 'package:hotle_attendnce_admin/src/feature/structure/model/structure_model.dart';
@@ -144,7 +146,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DayOffPage());
       case otcompesation:
         return MaterialPageRoute(builder: (_) => OTCompesation());
-       case configuration:
+      case configuration:
         return MaterialPageRoute(builder: (_) => PayslipComponent());
       case addWorkingday:
         return MaterialPageRoute(builder: (_) => AddWorkingDay());
@@ -226,8 +228,10 @@ class RouteGenerator {
         return _errorRoute();
       case structuretype:
         return MaterialPageRoute(builder: (_) => StructuretypePage());
-      // case addPayslip:
-      //   return MaterialPageRoute(builder: (_) => AddPayslip());
+      case employeeReport:
+        return MaterialPageRoute(builder: (_) => EmployeeReport());
+      case reportDashboard:
+        return MaterialPageRoute(builder: (_) => ReportWithDashboard());
       default:
         return _errorRoute();
     }

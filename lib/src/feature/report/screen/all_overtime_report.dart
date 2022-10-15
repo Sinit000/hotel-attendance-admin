@@ -1,45 +1,46 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/bloc/index.dart';
-import 'package:hotle_attendnce_admin/src/feature/report/model/employee_report_model.dart';
-import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
+import 'package:hotle_attendnce_admin/src/feature/report/model/overtime_report_model.dart';
 import 'package:hotle_attendnce_admin/src/utils/share/helper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_picker/flutter_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../../../appLocalizations.dart';
+import 'package:intl/intl.dart';
 
-class EmployeeReport extends StatefulWidget {
-  const EmployeeReport({Key? key}) : super(key: key);
+class AllOvertimeReport extends StatefulWidget {
+  const AllOvertimeReport({Key? key}) : super(key: key);
 
   @override
-  State<EmployeeReport> createState() => _EmployeeReportState();
+  State<AllOvertimeReport> createState() => _AllOvertimeReportState();
 }
 
-class _EmployeeReportState extends State<EmployeeReport> {
+class _AllOvertimeReportState extends State<AllOvertimeReport> {
   ReportBloc _employeeBloc = ReportBloc();
   final RefreshController _refreshController = RefreshController();
   String mydateRage = "This month";
   bool valuefirst = false;
   bool valuesecond = false;
   int? length = 0;
+  String id = "0";
 
   @override
   void initState() {
-    _employeeBloc.add(InitailizeReportEmployeeStarted(
-        dateRange: mydateRage, isSecond: false, isRefresh: false));
+    _employeeBloc.add(InitailizeOvertimeReportStarted(
+      id: id,
+      dateRange: mydateRage,
+      isSecond: false,
+      isRefresh: false,
+    ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.withOpacity(0.2),
-        appBar: standardAppBar(context,
-            "${AppLocalizations.of(context)!.translate("employee_report")!}"),
         body: BlocConsumer(
             bloc: _employeeBloc,
             builder: (context, state) {
@@ -52,10 +53,12 @@ class _EmployeeReportState extends State<EmployeeReport> {
                 return Center(
                   child: TextButton(
                       onPressed: () {
-                        _employeeBloc.add(InitailizeReportEmployeeStarted(
-                            dateRange: mydateRage,
-                            isSecond: true,
-                            isRefresh: true));
+                        _employeeBloc.add(InitailizeOvertimeReportStarted(
+                          id: id,
+                          dateRange: mydateRage,
+                          isSecond: true,
+                          isRefresh: true,
+                        ));
                       },
                       style: TextButton.styleFrom(
                         primary: Colors.white,
@@ -105,11 +108,13 @@ class _EmployeeReportState extends State<EmployeeReport> {
                                     print("myvalue $mydateRage");
                                     print(mydateRage);
                                   });
-                                  _employeeBloc.add(
-                                      InitailizeReportEmployeeStarted(
-                                          dateRange: mydateRage,
-                                          isSecond: true,
-                                          isRefresh: true));
+                                  _employeeBloc
+                                      .add(InitailizeOvertimeReportStarted(
+                                    id: id,
+                                    dateRange: mydateRage,
+                                    isSecond: true,
+                                    isRefresh: true,
+                                  ));
                                 }
                               },
                             ),
@@ -119,24 +124,23 @@ class _EmployeeReportState extends State<EmployeeReport> {
                       height: 10,
                       color: Colors.transparent,
                     ),
-                    _employeeBloc.reportEmployee.length == 0
+                    _employeeBloc.reportovertime.length == 0
                         ? Container(
                             child: Text("No data"),
                           )
                         : Expanded(
                             child: SmartRefresher(
                             onRefresh: () {
-                              print("fetch dateRange");
-                              print(mydateRage);
-                              _employeeBloc.add(InitailizeReportEmployeeStarted(
-                                  dateRange: mydateRage,
-                                  isSecond: true,
-                                  isRefresh: true));
+                              _employeeBloc.add(InitailizeOvertimeReportStarted(
+                                id: id,
+                                dateRange: mydateRage,
+                                isSecond: true,
+                                isRefresh: true,
+                              ));
                             },
                             onLoading: () {
-                              _employeeBloc.add(FetchReportEmployeeStarted(
-                                dateRange: mydateRage,
-                              ));
+                              _employeeBloc.add(FetchOvertimeReportStarted(
+                                  dateRange: mydateRage, id: id));
                             },
                             enablePullDown: true,
                             enablePullUp: true,
@@ -145,7 +149,7 @@ class _EmployeeReportState extends State<EmployeeReport> {
                               child: Column(
                                 // addAutomaticKeepAlives: true,
                                 children: [
-                                  _buildListItem(_employeeBloc.reportEmployee)
+                                  _buildListItem(_employeeBloc.reportovertime)
                                 ],
                               ),
                             ),
@@ -165,20 +169,10 @@ class _EmployeeReportState extends State<EmployeeReport> {
               if (state is EndOfReportList) {
                 _refreshController.loadNoData();
               }
-              // if (state is AddingLeave) {
-              //   EasyLoading.show(status: "loading....");
-              // } else if (state is ErrorAddingLeave) {
-              //   Navigator.pop(context);
-              //   errorSnackBar(text: state.error.toString(), context: context);
-              // } else if (state is AddedLeave) {
-              //   EasyLoading.dismiss();
-              //   EasyLoading.showSuccess("Sucess");
-              // }
             }));
-    // return ;
   }
 
-  _buildListItem(List<EmployeeReportModel> leavemodel) {
+  _buildListItem(List<OvertimeReportModel> leavemodel) {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -231,24 +225,27 @@ class _EmployeeReportState extends State<EmployeeReport> {
                   // ),
 
                   Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Text(
+                          "${AppLocalizations.of(context)!.translate("date")!} :",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Text(
+                        "${leavemodel[index].date}",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+
+                  Row(
                     // mainAxisAlignment:
                     //     MainAxisAlignment.spaceBetween,
                     children: [
-                      // leavemodel[index].status == "true"
-                      //     ? Container()
-                      //     : Checkbox(
-                      //         checkColor: Colors.greenAccent,
-                      //         activeColor: Colors.red,
-                      //         value: bool.fromEnvironment(
-                      //             leavemodel[index].status,
-                      //             defaultValue: false),
-                      //         onChanged: (bool? value) {
-                      //           setState(() {
-                      //             // this.valuefirst = value!;
-                      //             print(value);
-                      //           });
-                      //         },
-                      //       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 5),
                         child: Text(
@@ -257,42 +254,13 @@ class _EmployeeReportState extends State<EmployeeReport> {
                         ),
                       ),
                       Text(
-                        "${leavemodel[index].name}",
+                        "${leavemodel[index].username}",
                         style: TextStyle(
                             color: Colors.green, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Text(
-                          "${AppLocalizations.of(context)!.translate("position")!} :",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "${leavemodel[index].positionName} ",
-                            style: TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.bold),
-                          ),
-                          // Text("- "),
-                          // Text(
-                          //   " ${BlocProvider.of<WantedBloc>(context).wantedList[index].maxPrice}",
-                          //   style: TextStyle(
-                          //       color: Colors.red,
-                          //       fontWeight: FontWeight.bold),
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
+
                   SizedBox(
                     height: 5.0,
                   ),
@@ -305,14 +273,14 @@ class _EmployeeReportState extends State<EmployeeReport> {
         });
   }
 
-  _buildExpenable(EmployeeReportModel leavemodel) {
+  _buildExpenable(OvertimeReportModel leavemodel) {
     return ExpandableNotifier(
         child: Column(
       children: <Widget>[_expandableItemList(leavemodel)],
     ));
   }
 
-  _expandableItemList(EmployeeReportModel leavemodel) {
+  _expandableItemList(OvertimeReportModel leavemodel) {
     return ScrollOnExpand(
         scrollOnExpand: true,
         scrollOnCollapse: false,
@@ -340,12 +308,25 @@ class _EmployeeReportState extends State<EmployeeReport> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Text(
-                      "${AppLocalizations.of(context)!.translate("department")!} :",
+                      "${AppLocalizations.of(context)!.translate("position")!} :",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leavemodel.departmentName}",
+                  Row(
+                    children: [
+                      Text(
+                        "${leavemodel.position} ",
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
+                      // Text("- "),
+                      // Text(
+                      //   " ${BlocProvider.of<WantedBloc>(context).wantedList[index].maxPrice}",
+                      //   style: TextStyle(
+                      //       color: Colors.red,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                    ],
                   ),
                 ],
               ),
@@ -357,12 +338,12 @@ class _EmployeeReportState extends State<EmployeeReport> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Text(
-                      "${AppLocalizations.of(context)!.translate("base_salary")!} :",
+                      "${AppLocalizations.of(context)!.translate("reason")!} :",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
                   Text(
-                    "${leavemodel.baseSalary}",
+                    "${leavemodel.reason}",
                   ),
                 ],
               ),
@@ -374,12 +355,46 @@ class _EmployeeReportState extends State<EmployeeReport> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Text(
-                      "${AppLocalizations.of(context)!.translate("join_date")!} :",
+                      "${AppLocalizations.of(context)!.translate("total_earning")!} :",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
                   Text(
-                    "${leavemodel.joinDate}",
+                    "${leavemodel.totalEarning}",
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Text(
+                      "${AppLocalizations.of(context)!.translate("date")!} :",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  Text(
+                    "${leavemodel.date}",
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Text(
+                      "${AppLocalizations.of(context)!.translate("status")!} :",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  Text(
+                    "${leavemodel.status}",
                   ),
                 ],
               ),
@@ -494,8 +509,11 @@ class _EmployeeReportState extends State<EmployeeReport> {
             ps.onConfirm!(ps, ps.selecteds);
             pe.onConfirm!(pe, pe.selecteds);
             print("$_startDate/$_endDate");
-            _employeeBloc.add(InitailizeReportEmployeeStarted(
-                dateRange: mydateRage, isSecond: true, isRefresh: true));
+            _employeeBloc.add(InitailizeAttendanceReportStarted(
+                dateRange: "$_startDate/$_endDate",
+                isSecond: true,
+                isRefresh: true,
+                id: id));
           },
           child: Text(PickerLocalizations.of(context).confirmText!))
     ];
@@ -527,5 +545,11 @@ class _EmployeeReportState extends State<EmployeeReport> {
       return str == '1' || str == 'true';
     }
     return str != '0' && str != 'false' && str != '';
+  }
+
+  @override
+  void dispose() {
+    _employeeBloc.close();
+    super.dispose();
   }
 }

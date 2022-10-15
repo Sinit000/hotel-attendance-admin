@@ -18,21 +18,21 @@ class OvertimeReportModel {
   factory OvertimeReportModel.fromJson(Map<String, dynamic> json) {
     return OvertimeReportModel(
         id: json["id"].toString(),
-        reason: json["reason"],
-        fromDate: json["from_date"],
-        toDate: json["to_date"],
-        type: json["type"],
+        reason: json["reason"].toString(),
+        fromDate: json["from_date"].toString(),
+        toDate: json["to_date"].toString(),
+        type: json["type"].toString(),
         duration: json["number"].toString(),
         otRate: json["ot_rate"].toString(),
         otHour: json["ot_hour"].toString(),
         otMothod: json["ot_method"].toString(),
         totalEarning: json["total_ot"].toString(),
-        date: json["date"],
-        paytype: json["pay_type"],
-        status: json["status"],
-        username: json["user_name"],
-        position: json["position_name"],
-        requestBy: json["requested_by"]);
+        date: json["date"].toString(),
+        paytype: json["pay_type"].toString(),
+        status: json["status"].toString(),
+        username: json["user_name"].toString(),
+        position: json["position_name"].toString(),
+        requestBy: json["requested_by"].toString());
   }
   OvertimeReportModel(
       {required this.id,

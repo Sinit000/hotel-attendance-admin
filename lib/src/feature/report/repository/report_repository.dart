@@ -40,10 +40,10 @@ class ReportRepository {
           "employees/reports?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       Response response = await apiProvider.get(url, null, null);
 
-      if (response.statusCode == 200 && response.data["code"] == 0) {
+      if (response.statusCode == 200) {
         List<EmployeeReportModel> leave = [];
         response.data["data"].forEach((data) {
-          leave.add(EmployeeReportModel.fromJson(response.data["data"]));
+          leave.add(EmployeeReportModel.fromJson(data));
         });
         return leave;
       }
@@ -58,16 +58,17 @@ class ReportRepository {
       {required String startDate,
       required String endDate,
       required int page,
+      required String id,
       required int rowperpage}) async {
     try {
       String url = mainUrl +
-          "overtimes/reports?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
+          "overtimes/reports/$id?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       Response response = await apiProvider.get(url, null, null);
 
-      if (response.statusCode == 200 && response.data["code"] == 0) {
+      if (response.statusCode == 200) {
         List<OvertimeReportModel> leave = [];
         response.data["data"].forEach((data) {
-          leave.add(OvertimeReportModel.fromJson(response.data["data"]));
+          leave.add(OvertimeReportModel.fromJson(data));
         });
         return leave;
       }
@@ -82,16 +83,17 @@ class ReportRepository {
       {required String startDate,
       required String endDate,
       required int page,
+      required String id,
       required int rowperpage}) async {
     try {
       String url = mainUrl +
-          "leaves/reports?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
+          "leaves/reports/$id?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       Response response = await apiProvider.get(url, null, null);
 
-      if (response.statusCode == 200 && response.data["code"] == 0) {
+      if (response.statusCode == 200) {
         List<LeaveReportModel> leave = [];
         response.data["data"].forEach((data) {
-          leave.add(LeaveReportModel.fromJson(response.data["data"]));
+          leave.add(LeaveReportModel.fromJson(data));
         });
         return leave;
       }
@@ -113,10 +115,10 @@ class ReportRepository {
           "attendances/reports/$id?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       Response response = await apiProvider.get(url, null, null);
 
-      if (response.statusCode == 200 && response.data["code"] == 0) {
+      if (response.statusCode == 200) {
         List<AttendanceReportModel> leave = [];
         response.data["data"].forEach((data) {
-          leave.add(AttendanceReportModel.fromJson(response.data["data"]));
+          leave.add(AttendanceReportModel.fromJson(data));
         });
         return leave;
       }

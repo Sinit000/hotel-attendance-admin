@@ -155,6 +155,10 @@
     "approve_board":"Approve Board",
     "leave_out":"Leave out",
     "ot_compesation":"OT Compesation",
-    "change_dayOff":"Change Dayoff"
+    "change_dayOff":"Change Dayoff",
+    "join_date":"Join Date",
+    "total_earning" : "Total Earning",
+    "type_display" : "Type",
+    "request_date":"Request Date"
 }
     

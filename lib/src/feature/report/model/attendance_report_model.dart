@@ -11,6 +11,7 @@ class AttendanceReportModel {
   final String username;
   final String position;
   final String timetable;
+  final String date;
   factory AttendanceReportModel.fromJson(Map<String, dynamic> json) {
     return AttendanceReportModel(
         id: json["id"].toString(),
@@ -20,6 +21,7 @@ class AttendanceReportModel {
         checkoutTime: json["checkout_time"].toString(),
         checkoutEarly: json["checkout_late"].toString(),
         checkoutStatus: json["checkout_status"].toString(),
+        date: json["checkin_date"].toString(),
         status: json["status"].toString(),
         duration: json["duration"].toString(),
         position: json["position_name"].toString(),
@@ -39,5 +41,6 @@ class AttendanceReportModel {
       required this.duration,
       required this.position,
       required this.username,
+      required this.date,
       required this.timetable});
 }

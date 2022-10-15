@@ -29,6 +29,8 @@ const String leaveout = '/leaveout';
 const String otcompesation = '/otcompesation';
 const String dayoff = '/dayoff';
 const String configuration = '/configuration';
+const String employeeReport = '/employeeReport';
+const String reportDashboard = '/reportDashboard';
 
 const String addHoliday = '/addHoliday';
 const String addNotification = '/addNotification';
