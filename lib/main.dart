@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,9 +18,11 @@ import 'src/feature/landing/landing_page.dart';
 
 ///Receive message when app is in background solution for on message
 // GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
-
+enum Env { Production, Developement }
+final Env env = Env.Production;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: getServerEnvAssetPath(env));
   // await Firebase.initializeApp();
   // // await Firebase.
   // SystemChrome.setEnabledSystemUIMode();
@@ -31,6 +34,19 @@ void main() async {
   // await LocalNotificationService().initialize();
 
   runApp(MyApp());
+}
+
+String getServerEnvAssetPath(Env env) {
+  late final String path;
+  switch (env) {
+    case Env.Developement:
+      path = '';
+      break;
+    case Env.Production:
+      path = 'assets/.env';
+      break;
+  }
+  return path;
 }
 
 class MyApp extends StatelessWidget {

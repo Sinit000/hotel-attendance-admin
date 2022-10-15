@@ -29,72 +29,85 @@ class EmployeeModel {
   final String? coupleJob;
   final String? child;
 
+  final PositionModel? positionModel;
+  final DepartmentModel? departmentModel;
+  final WorkingDayModel? workingDayModel;
+  final TimetableModel? timetableModel;
+
+  // final WorkingDayModel? workday;
+  final RoleModel? roleModel;
+
   factory EmployeeModel.fromJson(Map<String, dynamic> json) {
     // if (!json["role"]) {
     //   roleModel = RoleModel(id:"",name: "" );
     // }
     return EmployeeModel(
-      id: json["id"].toString(),
-      name: json["name"],
-      gender: json["gender"],
-      img: json["profile_url"],
-      phone: json["employee_phone"],
-      username: json["username"],
-      address: json["address"],
-      nationalilty: json["nationality"],
-      dob: json["dob"],
-      card: json["card_number"],
-      officeTel: json["office_tel"],
-      no: json["no"],
-      meritalStatus: json["merital_status"],
-      coupleJob: json["spouse_job"],
-      child: json["minor_children"].toString(),
-      email: json["email"],
-      // type: json["em_type"].toString(),
-      positionId: json["position_id"].toString(),
-      checkinStatus: json["checkin_status"],
-      checkinId: json["checkin_id"].toString(),
-      // roleModel: json["role"] == null
-      //     ? RoleModel(id: "", name: "")
-      //     : RoleModel.fromJson(json["role"]),
-      // positionModel: json["position"] == null
-      //     ? PositionModel(id: "", positionName: "", type: "")
-      //     : PositionModel.fromJson(json["position"]),
-      // workingDayModel: json["workday"] == null
-      //     ? WorkingDayModel(
-      //         id: "",
-      //         name: "",
-      //         workingDay: "",
-      //         offDay: "",
-      //         notes: "",
-      //         typeDateTime: "")
-      //     : WorkingDayModel.fromJson(json["workday"]),
-      // departmentModel: json["department"] == null
-      //     ? DepartmentModel(
-      //         id: "",
-      //         name: "",
-      //         notes: "",
-      //         locationId: "",
-      //         managerId: "",
-      //         managerName: "",
-      //         locationModel: LocationModel(
-      //             id: "",
-      //             name: "",
-      //             lat: "",
-      //             long: "",
-      //             description: "",
-      //             notes: ""))
-      //     : DepartmentModel.fromJson(json["department"]),
-      // timetableModel: json["timetable"] == null
-      //     ? TimetableModel(
-      //         id: "",
-      //         timetableName: "",
-      //         offDutyTime: "",
-      //         onDutyTtime: "",
-      //         lateMn: "",
-      //         earlyMn: "")
-      //     : TimetableModel.fromJson(json["timetable"]),
-    );
+        id: json["id"].toString(),
+        name: json["name"],
+        gender: json["gender"],
+        img: json["profile_url"],
+        phone: json["employee_phone"],
+        username: json["username"],
+        address: json["address"],
+        nationalilty: json["nationality"],
+        dob: json["dob"],
+        card: json["card_number"],
+        officeTel: json["office_tel"],
+        no: json["no"],
+        meritalStatus: json["merital_status"],
+        coupleJob: json["spouse_job"],
+        child: json["minor_children"].toString(),
+        email: json["email"],
+        // type: json["em_type"].toString(),
+        positionId: json["position_id"].toString(),
+        checkinStatus: json["checkin_status"],
+        checkinId: json["checkin_id"].toString(),
+        positionModel: PositionModel.fromJson(json["position"]),
+        departmentModel: DepartmentModel.fromJson(json["department"]),
+        workingDayModel: WorkingDayModel.fromJson(json["workday"]),
+        timetableModel: TimetableModel.fromJson(json["timetable"]),
+        roleModel: RoleModel.fromJson(json["role"])
+        // roleModel: json["role"] == null
+        //     ? RoleModel(id: "", name: "")
+        //     : RoleModel.fromJson(json["role"]),
+        // positionModel: json["position"] == null
+        //     ? PositionModel(id: "", positionName: "", type: "")
+        //     : PositionModel.fromJson(json["position"]),
+        // workingDayModel: json["workday"] == null
+        //     ? WorkingDayModel(
+        //         id: "",
+        //         name: "",
+        //         workingDay: "",
+        //         offDay: "",
+        //         notes: "",
+        //         typeDateTime: "")
+        //     : WorkingDayModel.fromJson(json["workday"]),
+        // departmentModel: json["department"] == null
+        //     ? DepartmentModel(
+        //         id: "",
+        //         name: "",
+        //         notes: "",
+        //         locationId: "",
+        //         managerId: "",
+        //         managerName: "",
+        //         locationModel: LocationModel(
+        //             id: "",
+        //             name: "",
+        //             lat: "",
+        //             long: "",
+        //             description: "",
+        //             notes: ""))
+        //     : DepartmentModel.fromJson(json["department"]),
+        // timetableModel: json["timetable"] == null
+        //     ? TimetableModel(
+        //         id: "",
+        //         timetableName: "",
+        //         offDutyTime: "",
+        //         onDutyTtime: "",
+        //         lateMn: "",
+        //         earlyMn: "")
+        //     : TimetableModel.fromJson(json["timetable"]),
+        );
   }
   EmployeeModel(
       {required this.id,
@@ -121,5 +134,10 @@ class EmployeeModel {
       // required this.roleModel,
       // required this.timetableModel,
       // required this.workday,
+      required this.positionModel,
+      required this.departmentModel,
+      required this.workingDayModel,
+      required this.timetableModel,
+      required this.roleModel,
       required this.checkinId});
 }

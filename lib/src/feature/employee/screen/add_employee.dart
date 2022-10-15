@@ -68,6 +68,15 @@ class _AddEmployeeState extends State<AddEmployee> {
   DateTime dateNow = DateTime.now();
   String? dateToday;
   List<String> gender = ["Female", "Male", "Other"];
+  List<String> country = [
+    "Cambodian",
+    "Thai",
+    "Laos",
+    "VietNam",
+    "Chinese",
+    "Korean",
+    "Japanese"
+  ];
   List<String> status = ["married", "single"];
   List<String> job = ["housewife", "not housewife"];
   @override
@@ -343,10 +352,12 @@ class _AddEmployeeState extends State<AddEmployee> {
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _natoinCtrl,
-                                      // onTap: () {
-                                      //   _buildCountry();
-                                      // },
-                                      // readOnly: true,
+                                      onTap: () {
+                                        customModal(context, country, (value) {
+                                          _natoinCtrl.text = value;
+                                        });
+                                      },
+                                      readOnly: true,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                           suffixIcon:
@@ -384,7 +395,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                                           ),
                                           labelText: "Card Number"),
                                     ),
-
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _usernameCtrl,
@@ -448,7 +458,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                                           labelText: "Office Tel"),
                                     ),
                                     SizedBox(height: 15),
-                                    
                                     TextFormField(
                                       controller: _phoneNumberCtrl,
                                       keyboardType: TextInputType.text,
@@ -463,7 +472,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                                             left: 14.0,
                                           ),
                                           labelText: "Phone number"),
-                                     
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -610,7 +618,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                                         return null;
                                       },
                                     ),
-
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _addressCtrl,
@@ -679,7 +686,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _numchildCtrl,
-                                      readOnly: true,
+                                      // readOnly: true,
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
                                           fillColor: Colors.grey.shade100,
@@ -695,7 +702,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                                               "Enter number of children"),
                                     ),
                                     SizedBox(height: 15),
-
                                     GestureDetector(
                                         onTap: () {
                                           _showPicker(context);

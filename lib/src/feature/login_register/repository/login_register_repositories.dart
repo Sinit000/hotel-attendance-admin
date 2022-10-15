@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/auth/model/user_model.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 
 class LoginRegisterRepository {
   ApiProvider apiProvider = ApiProvider();
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
 
   Future<UserModel> login(
       {required String phone, required String password}) async {
@@ -22,10 +23,8 @@ class LoginRegisterRepository {
       print(response.statusCode);
 
       if (response.statusCode == 200 && response.data["code"] == 0) {
-       
         return UserModel.fromJson(response.data);
       } else if (response.data["code"].toString() != "0") {
-      
         throw response.data["message"];
       }
       throw CustomException.generalException();
@@ -50,11 +49,8 @@ class LoginRegisterRepository {
       print(phoneNumber);
       Response response = await apiProvider.post(url, body, null);
       if (response.statusCode == 200 && response.data["code"] == 0) {
-       
         return UserModel.fromJson(response.data);
-        
       } else if (response.data["code"] != 0) {
-       
         throw response.data["message"];
       }
       throw CustomException.generalException();

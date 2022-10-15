@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/structure/model/structure_model.dart';
 
 import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 
 class StructureRepository {
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   ApiProvider _apiProvider = ApiProvider();
   Future<List<StructureModel>> getStructure(
       {required int rowperpage, required int page}) async {
     try {
       String url =
-          "https://banban-hr.herokuapp.com/api/structures?page_size=$rowperpage&page=$page";
+          "${dotenv.env['baseUrl']}structures?page_size=$rowperpage&page=$page";
       Response response = await _apiProvider.get(url, null, null);
       print(response.statusCode);
       print(url);
@@ -31,7 +32,7 @@ class StructureRepository {
 
   Future<List<StructureModel>> getAllStructure() async {
     try {
-      String url = "https://banban-hr.herokuapp.com/api/structures/all";
+      String url = "${dotenv.env['baseUrl']}structures/all";
       Response response = await _apiProvider.get(url, null, null);
       print(response.statusCode);
       print(url);  

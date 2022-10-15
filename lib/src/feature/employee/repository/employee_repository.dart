@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/auth/model/user_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_detail_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_model.dart';
@@ -7,7 +8,7 @@ import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 
 class EmployeeRepository {
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   ApiProvider apiProvider = ApiProvider();
   Future<List<EmployeeModel>> getEmployee(
       {required int rowPerpage, required int page}) async {
@@ -170,10 +171,12 @@ class EmployeeRepository {
     required String id,
     required String name,
     required String gender,
+    required String img,
     required String email,
     required String dob,
     required String officeTel,
-    required String img,
+    // required String username,
+    // required String password,
     required String positionId,
     required String departmentId,
     required String phoneNumber,
@@ -192,19 +195,19 @@ class EmployeeRepository {
       Map body = {
         "name": name,
         "gender": gender,
+        // "username": username,
         "email": email,
         "dob": dob,
         "office_tel": officeTel,
+        // "password": password,
         "profile_url": img,
         "position_id": positionId,
         "department_id": departmentId,
-        "employee_phone": phoneNumber,
+        "phone": phoneNumber,
         "address": address,
         "merital_status": meritalStatus,
-        // "role_id": roleId,
-        "number_of_child": child,
-        "couple_job": coupleJob,
-        // "role_id": roleId,
+        "minor_children": child,
+        "spouse_job": coupleJob,
         "role_id": roleId,
         "nationality": nationality,
         "card_number": cardNumber,

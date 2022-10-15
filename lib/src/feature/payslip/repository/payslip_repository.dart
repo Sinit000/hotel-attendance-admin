@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/payslip/model/payslip_model.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 
 class PayslipRepository {
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   ApiProvider _apiProvider = ApiProvider();
   Future<List<PayslipModel>> getPayslip(
       {required int rowperpage,
@@ -13,7 +14,7 @@ class PayslipRepository {
       required String endDate}) async {
     try {
       String url =
-          "https://banban-hr.herokuapp.com/api/payslips?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
+          "${dotenv.env['baseUrl']}payslips?from_date=$startDate&to_date=$endDate&page_size=$rowperpage&page=$page";
       print(url);
       Response response = await _apiProvider.get(url, null, null);
       print(response.statusCode);

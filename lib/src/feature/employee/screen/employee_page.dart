@@ -258,8 +258,8 @@ class _BodyState extends State<Body> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (con) => EditEmployee(
-                                                id: employeeBloc
-                                                    .emploList[index].id,
+                                                employeeModel: employeeBloc
+                                                    .emploList[index],
                                               )));
                                 }),
                             SizedBox(

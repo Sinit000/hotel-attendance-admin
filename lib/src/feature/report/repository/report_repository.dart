@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/model/attendance_report_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/model/employee_report_model.dart';
@@ -10,7 +11,7 @@ import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 
 class ReportRepository {
   ApiProvider apiProvider = ApiProvider();
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   Future<ReportModel> getReport(
       {required String startDate, required String endDate}) async {
     try {

@@ -34,60 +34,14 @@ import 'package:lottie/lottie.dart';
 import 'employee_page.dart';
 
 class EditEmployee extends StatefulWidget {
-  final String id;
-  const EditEmployee({required this.id}) : super();
+  final EmployeeModel employeeModel;
+  const EditEmployee({required this.employeeModel}) : super();
 
   @override
   State<EditEmployee> createState() => _EditEmployeeState();
 }
 
 class _EditEmployeeState extends State<EditEmployee> {
-  @override
-  Widget build(BuildContext context) {
-    employeeBloc.add(FetchEmployeeDetailStarted(id: widget.id));
-    return Scaffold(
-      body: BlocBuilder(
-          bloc: employeeBloc,
-          builder: (context, state) {
-            if (state is FetchedEmployee) {
-              return Body(
-                employeeModel: employeeBloc.employeeModel!,
-              );
-            }
-            if (state is ErrorFetchingEmployee) {
-              return Center(
-                child: TextButton(
-                    onPressed: () {
-                      employeeBloc
-                          .add(FetchEmployeeDetailStarted(id: widget.id));
-                    },
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: Colors.teal,
-                      onSurface: Colors.grey,
-                    ),
-                    child: Text("Retry")),
-              );
-            }
-            return Center(
-              // child: CircularProgressIndicator(),
-              child: Lottie.asset('assets/animation/loader.json',
-                  width: 200, height: 200),
-            );
-          }),
-    );
-  }
-}
-
-class Body extends StatefulWidget {
-  final EmployeeDetailModel employeeModel;
-  const Body({required this.employeeModel});
-
-  @override
-  State<Body> createState() => _EditBodyState();
-}
-
-class _EditBodyState extends State<Body> {
   final TextEditingController _nameCtrl = TextEditingController();
   final TextEditingController _genderCtrl = TextEditingController();
   final TextEditingController _usernameCtrl = TextEditingController();
@@ -123,6 +77,15 @@ class _EditBodyState extends State<Body> {
   List<String> gender = ["Female", "Male", "Other"];
   List<String> status = ["married", "single"];
   List<String> job = ["housewife", "not housewife"];
+  List<String> country = [
+    "Cambodian",
+    "Thai",
+    "Laos",
+    "VietNam",
+    "Chinese",
+    "Korean",
+    "Japanese"
+  ];
   _datePicker({required TextEditingController controller}) {
     return showDatePicker(
       context: context,
@@ -145,39 +108,51 @@ class _EditBodyState extends State<Body> {
 
   @override
   void initState() {
-    _nameCtrl.text = widget.employeeModel.employeeModel.name;
-    widget.employeeModel.employeeModel.address == null
+    _nameCtrl.text = widget.employeeModel.name;
+    widget.employeeModel.address == null
         ? _addressCtrl.text = ""
-        : _addressCtrl.text = widget.employeeModel.employeeModel.address!;
+        : _addressCtrl.text = widget.employeeModel.address!;
 
     _positionIdCtrl.text =
         employeeBloc.employeeModel!.positionModel!.positionName;
     _departmentIdCtrl.text = employeeBloc.employeeModel!.departmentModel!.name!;
     // _roleCtrl.text = employeeBloc..name;
 
-    _genderCtrl.text = widget.employeeModel.employeeModel.gender;
-    widget.employeeModel.employeeModel.phone == null
+    _genderCtrl.text = widget.employeeModel.gender;
+    widget.employeeModel.phone == null
         ? _phoneNumberCtrl.text = ""
-        : _phoneNumberCtrl.text = widget.employeeModel.employeeModel.phone!;
-    _usernameCtrl.text = widget.employeeModel.employeeModel.username!;
-    widget.employeeModel.employeeModel.email == null
+        : _phoneNumberCtrl.text = widget.employeeModel.phone!;
+    _usernameCtrl.text = widget.employeeModel.username!;
+    widget.employeeModel.email == null
         ? _emailCtrl.text = ""
-        : _emailCtrl.text = widget.employeeModel.employeeModel.email!;
-    widget.employeeModel.employeeModel.dob == null
+        : _emailCtrl.text = widget.employeeModel.email!;
+    widget.employeeModel.dob == null
         ? _dobCtrl.text = ""
-        : _dobCtrl.text = widget.employeeModel.employeeModel.dob!;
-    widget.employeeModel.employeeModel.officeTel == null
+        : _dobCtrl.text = widget.employeeModel.dob!;
+    widget.employeeModel.officeTel == null
         ? _officeTelCtrl.text = ""
-        : _officeTelCtrl.text = widget.employeeModel.employeeModel.officeTel!;
-    widget.employeeModel.employeeModel.meritalStatus == null
+        : _officeTelCtrl.text = widget.employeeModel.officeTel!;
+    widget.employeeModel.meritalStatus == null
         ? _statusCtl.text = ""
-        : _statusCtl.text = widget.employeeModel.employeeModel.meritalStatus!;
-    widget.employeeModel.employeeModel.coupleJob == null
+        : _statusCtl.text = widget.employeeModel.meritalStatus!;
+    widget.employeeModel.coupleJob == null
         ? _coupleCtrl.text = ""
-        : _coupleCtrl.text = widget.employeeModel.employeeModel.coupleJob!;
-    widget.employeeModel.employeeModel.child == null
+        : _coupleCtrl.text = widget.employeeModel.coupleJob!;
+    widget.employeeModel.child == null
         ? _numchildCtrl.text = ""
-        : _numchildCtrl.text = widget.employeeModel.employeeModel.child!;
+        : _numchildCtrl.text = widget.employeeModel.child!;
+    widget.employeeModel.card == null
+        ? _cardCtrl.text = ""
+        : _cardCtrl.text = widget.employeeModel.card!;
+    widget.employeeModel.nationalilty == null
+        ? _natoinCtrl.text = ""
+        : _natoinCtrl.text = widget.employeeModel.nationalilty!;
+    _timetableCtrl.text =
+        "from ${widget.employeeModel.timetableModel!.onDutyTtime} to ${widget.employeeModel.timetableModel!.offDutyTime}";
+    _workdayCtrl.text =
+        "from ${widget.employeeModel.workingDayModel!.workingDay} to ${widget.employeeModel.workingDayModel!.offDay}";
+    _roleCtrl.text = widget.employeeModel.roleModel!.name;
+
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy/MM/dd').format(now);
     // String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
@@ -192,13 +167,13 @@ class _EditBodyState extends State<Body> {
     _positionBloc.close();
     _positionBloc.close();
     _workingDayBloc.close();
+    _roleBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, "Edit Employee"),
       body: Builder(builder: (context) {
         return BlocListener(
             bloc: employeeBloc,
@@ -428,10 +403,12 @@ class _EditBodyState extends State<Body> {
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _natoinCtrl,
-                                      // onTap: () {
-                                      //   _buildCountry();
-                                      // },
-                                      // readOnly: true,
+                                      onTap: () {
+                                        customModal(context, country, (value) {
+                                          _natoinCtrl.text = value;
+                                        });
+                                      },
+                                      readOnly: true,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                           suffixIcon:
@@ -472,7 +449,7 @@ class _EditBodyState extends State<Body> {
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _usernameCtrl,
-                                      // readOnly: true,
+                                      readOnly: true,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                           fillColor: Colors.grey.shade100,
@@ -492,29 +469,29 @@ class _EditBodyState extends State<Body> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 15),
-                                    TextFormField(
-                                      controller: _passwordCtrl,
-                                      // readOnly: true,
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                          fillColor: Colors.grey.shade100,
-                                          filled: true,
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: new BorderSide(
-                                                  color: Colors.grey.shade400)),
-                                          enabledBorder: InputBorder.none,
-                                          contentPadding: const EdgeInsets.only(
-                                            left: 14.0,
-                                          ),
-                                          labelText: "Password"),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'password is required';
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                    // SizedBox(height: 15),
+                                    // TextFormField(
+                                    //   controller: _passwordCtrl,
+                                    //   // readOnly: true,
+                                    //   keyboardType: TextInputType.text,
+                                    //   decoration: InputDecoration(
+                                    //       fillColor: Colors.grey.shade100,
+                                    //       filled: true,
+                                    //       focusedBorder: OutlineInputBorder(
+                                    //           borderSide: new BorderSide(
+                                    //               color: Colors.grey.shade400)),
+                                    //       enabledBorder: InputBorder.none,
+                                    //       contentPadding: const EdgeInsets.only(
+                                    //         left: 14.0,
+                                    //       ),
+                                    //       labelText: "Password"),
+                                    //   validator: (value) {
+                                    //     if (value!.isEmpty) {
+                                    //       return 'password is required';
+                                    //     }
+                                    //     return null;
+                                    //   },
+                                    // ),
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _officeTelCtrl,
@@ -760,7 +737,7 @@ class _EditBodyState extends State<Body> {
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _numchildCtrl,
-                                      readOnly: true,
+                                      // readOnly: true,
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
                                           fillColor: Colors.grey.shade100,
@@ -787,10 +764,7 @@ class _EditBodyState extends State<Body> {
                                                     10) *
                                                 8,
                                             child: (_image == null)
-                                                ? widget
-                                                            .employeeModel
-                                                            .employeeModel
-                                                            .img ==
+                                                ? widget.employeeModel.img ==
                                                         null
                                                     ? Container(
                                                         width: (MediaQuery.of(
@@ -835,7 +809,7 @@ class _EditBodyState extends State<Body> {
                                                         // memCacheHeight: 250,
                                                         // memCacheWidth: 250,
                                                         imageUrl:
-                                                            "${widget.employeeModel.employeeModel.img!}",
+                                                            "${widget.employeeModel.img!}",
                                                         errorWidget:
                                                             (context, a, b) {
                                                           return FittedBox(
@@ -942,19 +916,16 @@ class _EditBodyState extends State<Body> {
                                                   .employeeModel.roleModel!.id;
                                             }
 
-                                            if (widget.employeeModel
-                                                    .employeeModel.img ==
+                                            if (widget.employeeModel.img ==
                                                 null) {
                                               url = "";
                                             } else {
-                                              url = widget.employeeModel
-                                                  .employeeModel.img!;
+                                              url = widget.employeeModel.img!;
                                             }
 
                                             employeeBloc.add(
                                                 UpdateEmployeeStarted(
-                                                    id: widget.employeeModel
-                                                        .employeeModel.id,
+                                                    id: widget.employeeModel.id,
                                                     name: _nameCtrl.text,
                                                     gender: _genderCtrl.text,
                                                     dob: _dobCtrl.text,

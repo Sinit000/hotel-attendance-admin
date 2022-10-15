@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/feature/checkin/model/checkin_model.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
@@ -6,7 +7,7 @@ import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 class CheckInOutRepository {
   ApiProvider apiProvider = ApiProvider();
   // String mainUrl = "http://10.0.2.2:8000/api/";
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   Future<List<CheckinModel>> getcheckin(
       {required int page, required int rowperpage}) async {
     try {

@@ -5,13 +5,14 @@ import 'dart:typed_data';
 // import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/api_provider.dart';
 import 'package:hotle_attendnce_admin/src/utils/service/custome_exception.dart';
 import 'package:path_provider/path_provider.dart';
 // import 'dart:io' as Io;
 
 class QrRepository {
-  String mainUrl = "https://banban-hr.herokuapp.com/api/";
+  String mainUrl = "${dotenv.env['baseUrl']}";
   ApiProvider apiProvider = ApiProvider();
   Uint8List? _bytes;
 
@@ -32,7 +33,7 @@ class QrRepository {
   // }
   Future<String> getQR() async {
     try {
-      String url = "https://banban-hr.herokuapp.com/api/qr";
+      String url = "${dotenv.env['baseUrl']}";
 
       Response response = await apiProvider.get(url, null, null);
       print(response.statusCode);
@@ -53,5 +54,4 @@ class QrRepository {
     var bytes = utf8.encode(image);
     base64.encode(bytes);
   }
-  
 }
