@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       {
         "name": "${AppLocalizations.of(context)!.translate("dashboard")!}",
         "iconColor": Colors.blue,
-        "image": "assets/blackIcon/checking-attendance.png",
+        "image": "assets/blackIcon/dashboard.png",
         "onPressed": () {
           Navigator.pushNamed(context, dashboard);
         }

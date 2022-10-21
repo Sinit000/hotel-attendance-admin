@@ -62,11 +62,20 @@ class EmployeeModel {
         positionId: json["position_id"].toString(),
         checkinStatus: json["checkin_status"],
         checkinId: json["checkin_id"].toString(),
-        positionModel: PositionModel.fromJson(json["position"]),
-        departmentModel: DepartmentModel.fromJson(json["department"]),
-        workingDayModel: WorkingDayModel.fromJson(json["workday"]),
-        timetableModel: TimetableModel.fromJson(json["timetable"]),
-        roleModel: RoleModel.fromJson(json["role"])
+        positionModel: json["position"] == null
+            ? null
+            : PositionModel.fromJson(json["position"]),
+        departmentModel: json["department"] == null
+            ? null
+            : DepartmentModel.fromJson(json["department"]),
+        workingDayModel: json["workday"] == null
+            ? null
+            : WorkingDayModel.fromJson(json["workday"]),
+        timetableModel: json["timetable"] == null
+            ? null
+            : TimetableModel.fromJson(json["timetable"]),
+        roleModel:
+            json["role"] == null ? null : RoleModel.fromJson(json["role"])
         // roleModel: json["role"] == null
         //     ? RoleModel(id: "", name: "")
         //     : RoleModel.fromJson(json["role"]),

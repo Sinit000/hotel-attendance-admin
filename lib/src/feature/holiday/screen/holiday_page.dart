@@ -247,49 +247,47 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
-            holidayModel.status == "pending"
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CupertinoButton(
-                          padding: EdgeInsets.all(1.0),
-                          color: Colors.blue,
-                          child: Row(
-                            children: [
-                              Icon(Icons.edit),
-                            ],
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (con) => EditHoliday(
-                                        holidayModel: holidayModel)));
-                          }),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      CupertinoButton(
-                          padding: EdgeInsets.all(1.0),
-                          color: Colors.red,
-                          child: Row(
-                            children: [
-                              Icon(Icons.delete),
-                            ],
-                          ),
-                          onPressed: () {
-                            deleteDialog(
-                                context: context,
-                                onPress: () {
-                                  Navigator.pop(context);
-                                  print("id ${holidayModel.id}");
-                                  holidayBloc.add(DeleteHolidayStarted(
-                                      id: holidayModel.id));
-                                });
-                          }),
-                    ],
-                  )
-                : Container(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CupertinoButton(
+                    padding: EdgeInsets.all(1.0),
+                    color: Colors.blue,
+                    child: Row(
+                      children: [
+                        Icon(Icons.edit),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (con) =>
+                                  EditHoliday(holidayModel: holidayModel)));
+                    }),
+                SizedBox(
+                  width: 5,
+                ),
+                CupertinoButton(
+                    padding: EdgeInsets.all(1.0),
+                    color: Colors.red,
+                    child: Row(
+                      children: [
+                        Icon(Icons.delete),
+                      ],
+                    ),
+                    onPressed: () {
+                      deleteDialog(
+                          context: context,
+                          onPress: () {
+                            Navigator.pop(context);
+                            print("id ${holidayModel.id}");
+                            holidayBloc
+                                .add(DeleteHolidayStarted(id: holidayModel.id));
+                          });
+                    }),
+              ],
+            )
           ],
         ),
       ),

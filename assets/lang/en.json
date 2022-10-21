@@ -164,7 +164,9 @@
     "overtime_report":"Overtime Report",
     "leave_report" : "Leave Report",
     "type_display" : "Type",
-    "request_date":"Request Date"
+    "request_date":"Request Date",
+    "approve_by": "Approved By",
+    "check_by": "Checked By"
    
     
     

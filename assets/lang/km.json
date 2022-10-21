@@ -159,6 +159,8 @@
     "join_date":"Join Date",
     "total_earning" : "Total Earning",
     "type_display" : "Type",
-    "request_date":"Request Date"
+    "request_date":"Request Date",
+    "approve_by": "Approved By",
+    "check_by": "Checked By"
 }
     

@@ -67,7 +67,10 @@ class _BodyState extends State<Body> {
             );
           }
           if (state is ErrorFetchingEmployee) {
-            Helper.handleState(state: state.error, context: context);
+            // Helper.handleState(state: state.error, context: context);
+            return Center(
+              child: Text(state.error),
+            );
           }
           return BlocListener(
             bloc: employeeBloc,
@@ -129,6 +132,5 @@ class _BodyState extends State<Body> {
             ),
           );
         });
-   
   }
 }
