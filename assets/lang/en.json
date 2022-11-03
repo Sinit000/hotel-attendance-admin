@@ -166,7 +166,8 @@
     "type_display" : "Type",
     "request_date":"Request Date",
     "approve_by": "Approved By",
-    "check_by": "Checked By"
+    "check_by": "Checked By",
+    "counter": "Counter"
    
     
     

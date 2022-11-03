@@ -15,12 +15,22 @@ import 'package:hotle_attendnce_admin/src/feature/payslip/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/permission/bloc/leave_bloc.dart';
 import 'src/appLocalizations.dart';
 import 'src/feature/landing/landing_page.dart';
+import 'dart:io';
 
 ///Receive message when app is in background solution for on message
 // GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 enum Env { Production, Developement }
 final Env env = Env.Production;
 void main() async {
+   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: getServerEnvAssetPath(env));
   // await Firebase.initializeApp();

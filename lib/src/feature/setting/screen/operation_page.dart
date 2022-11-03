@@ -54,14 +54,14 @@ class _OperationPageState extends State<OperationPage> {
           Navigator.pushNamed(context, position);
         }
       },
-      {
-        "name": "${AppLocalizations.of(context)!.translate("schdeule")!}",
-        "iconColor": Colors.lightBlue[300],
-        "image": "assets/icon/timetable.png",
-        "onPressed": () {
-          Navigator.pushNamed(context, timetable);
-        }
-      },
+      // {
+      //   "name": "${AppLocalizations.of(context)!.translate("schdeule")!}",
+      //   "iconColor": Colors.lightBlue[300],
+      //   "image": "assets/icon/timetable.png",
+      //   "onPressed": () {
+      //     Navigator.pushNamed(context, timetable);
+      //   }
+      // },
       {
         "name": "${AppLocalizations.of(context)!.translate("workday")!}",
         "iconColor": Colors.green,
@@ -74,7 +74,7 @@ class _OperationPageState extends State<OperationPage> {
         "name": "${AppLocalizations.of(context)!.translate("timetable")!}",
         "iconColor": Colors.purple[300],
         "image": "assets/icon/calendar.png",
-        "onPressed": () {
+        "onPressed": () { 
           Navigator.pushNamed(context, timetable);
         }
       },

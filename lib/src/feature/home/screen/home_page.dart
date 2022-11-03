@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       {
         "name": "${AppLocalizations.of(context)!.translate("operation")!}",
         "iconColor": Colors.blue,
-        "image": "assets/icon/setting.png",
+        "image": "assets/blackIcon/customer-support.png",
         "onPressed": () {
           // Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingPage()));
           Navigator.pushNamed(context, operation);

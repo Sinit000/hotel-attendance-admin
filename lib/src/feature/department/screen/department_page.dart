@@ -1,6 +1,7 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/department/bloc/index.dart';
+import 'package:hotle_attendnce_admin/src/feature/department/screen/edit_department.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/delete_dialog.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/error_snackbar.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
@@ -229,9 +230,18 @@ class _DepartmentBodyState extends State<DepartmentBody> {
                                     ],
                                   ),
                                   onPressed: () {
-                                    Navigator.pushNamed(context, editDepartment,
-                                        arguments: departmentBlc
-                                            .departmentList[index]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditDepartment(
+                                                    departmentModel:
+                                                        departmentBlc
+                                                                .departmentList[
+                                                            index])));
+                                    // Navigator.pushNamed(context, editDepartment,
+                                    //     arguments: departmentBlc
+                                    //         .departmentList[index]);
                                   }),
                               SizedBox(
                                 width: 5,

@@ -189,12 +189,15 @@ class _BodyState extends State<Body> {
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                Text(
-                  "${workingDayModel.offDay}",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                )
+                workingDayModel.offDay == null ||
+                        workingDayModel.offDay == "null"
+                    ? Text("")
+                    : Text(
+                        "${workingDayModel.offDay}",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      )
               ],
             ),
             SizedBox(

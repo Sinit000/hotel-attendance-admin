@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/bloc/index.dart';
@@ -187,16 +188,33 @@ class _BodyState extends State<Body> {
                                             BorderRadius.circular(100),
                                         color: Colors.grey[300]),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: FadeInImage.assetNetwork(
-                                        placeholder: "assets/icon/avartar.png",
-                                        // imageCacheHeight: 80,
-                                        // imageCacheWidth: 80,
-                                        image:
-                                            "${employeeBloc.emploList[index].img}",
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: Container(
+                                          color: Colors.grey[350],
+                                          child: ExtendedImage.network(
+                                            "https://banban-hr.com/hotel/public/${employeeBloc.emploList[index].img}",
+                                            // err: Container(
+                                            //   child: Image.asset("assets/img/store/shop-hint.jpg"),
+                                            // ),
+                                            cacheWidth: 1000,
+                                            // cacheHeight: 400,
+                                            enableMemoryCache: true,
+                                            clearMemoryCacheWhenDispose: true,
+                                            clearMemoryCacheIfFailed: false,
+                                            fit: BoxFit.fill,
+                                            width: double.infinity,
+                                          ),
+                                        )
+                                        //  FadeInImage.assetNetwork(
+                                        //   placeholder: "assets/icon/avartar.png",
+                                        //   // imageCacheHeight: 80,
+                                        //   // imageCacheWidth: 80,
+                                        //   image:
+                                        //       "${employeeBloc.emploList[index].img}",
+                                        //   fit: BoxFit.fill,
+                                        // ),
+                                        )),
                             SizedBox(width: 20),
                             Expanded(
                               child: Column(

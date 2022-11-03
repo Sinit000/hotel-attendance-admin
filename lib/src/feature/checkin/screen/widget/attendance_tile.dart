@@ -64,7 +64,7 @@ class _AttendanceTileState extends State<AttendanceTile> {
                         : Container(
                             color: Colors.grey[350],
                             child: ExtendedImage.network(
-                              widget.employeeModel.img!,
+                              "https://banban-hr.com/hotel/public/${widget.employeeModel.img!}",
                               // err: Container(
                               //   child: Image.asset("assets/img/store/shop-hint.jpg"),
                               // ),
