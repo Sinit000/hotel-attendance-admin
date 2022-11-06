@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
               // Locale('zh', 'CN'),
             ],
             debugShowCheckedModeBanner: false,
-            title: 'Attendance Admin',
+            title: 'Attendance App HR',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),

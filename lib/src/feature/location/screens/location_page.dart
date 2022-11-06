@@ -6,6 +6,7 @@ import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/bloc/location_bloc.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/models/location_model.dart';
+import 'package:hotle_attendnce_admin/src/feature/location/screens/generate_qr.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/delete_dialog.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/error_snackbar.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
@@ -90,7 +91,17 @@ class _BodyState extends State<Body> {
               child: ListView.builder(
                   itemCount: locationBloc.departmentList.length,
                   itemBuilder: (context, index) {
-                    return _buildListItem(locationBloc.departmentList[index]);
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GenerateQr(
+                                    id: locationBloc
+                                        .departmentList[index].id)));
+                      },
+                      child: _buildListItem(locationBloc.departmentList[index]),
+                    );
                   }),
             );
           }
