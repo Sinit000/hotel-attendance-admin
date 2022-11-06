@@ -779,6 +779,12 @@ class _AddEmployeeState extends State<AddEmployee> {
                                                         "from ${e.workingDay} to ${e.offDay}" ==
                                                         _workdayCtrl.text);
                                             // if (_image == null) {}
+                                            String gender = "";
+                                            if (_genderCtrl.text == "Female") {
+                                              gender = "F";
+                                            } else {
+                                              gender = "M";
+                                            }
                                             print(_image);
                                             employeeBloc.add(AddEmployeeStarted(
                                                 cardNumber: _cardCtrl.text,
@@ -787,7 +793,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                                                 timetalbeId: timetableModel.id,
                                                 workdayId: workingDayModel.id,
                                                 name: _nameCtrl.text,
-                                                gender: _genderCtrl.text,
+                                                gender: gender,
                                                 dob: _dobCtrl.text,
                                                 email: _emailCtrl.text,
                                                 username: _usernameCtrl.text,

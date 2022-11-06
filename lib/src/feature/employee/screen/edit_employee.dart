@@ -117,8 +117,12 @@ class _EditEmployeeState extends State<EditEmployee> {
         employeeBloc.employeeModel!.positionModel!.positionName;
     _departmentIdCtrl.text = employeeBloc.employeeModel!.departmentModel!.name!;
     // _roleCtrl.text = employeeBloc..name;
+    if (widget.employeeModel.gender == "F") {
+      _genderCtrl.text = "Female";
+    } else {
+      _genderCtrl.text = "Male";
+    }
 
-    _genderCtrl.text = widget.employeeModel.gender;
     widget.employeeModel.phone == null
         ? _phoneNumberCtrl.text = ""
         : _phoneNumberCtrl.text = widget.employeeModel.phone!;
@@ -922,12 +926,18 @@ class _EditEmployeeState extends State<EditEmployee> {
                                             } else {
                                               url = widget.employeeModel.img!;
                                             }
+                                            String gender = "";
+                                            if (_genderCtrl.text == "Female") {
+                                              gender = "F";
+                                            } else {
+                                              gender = "M";
+                                            }
 
                                             employeeBloc.add(
                                                 UpdateEmployeeStarted(
                                                     id: widget.employeeModel.id,
                                                     name: _nameCtrl.text,
-                                                    gender: _genderCtrl.text,
+                                                    gender: gender,
                                                     dob: _dobCtrl.text,
                                                     email: _emailCtrl.text,
                                                     officeTel:
