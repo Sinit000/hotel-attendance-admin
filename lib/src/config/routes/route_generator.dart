@@ -7,6 +7,8 @@ import 'package:hotle_attendnce_admin/src/feature/contract/model/contract_model.
 import 'package:hotle_attendnce_admin/src/feature/contract/screen/add_contract.dart';
 import 'package:hotle_attendnce_admin/src/feature/contract/screen/contract_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/contract/screen/edit_contract.dart';
+import 'package:hotle_attendnce_admin/src/feature/counter/screen/checkin_history_page.dart';
+import 'package:hotle_attendnce_admin/src/feature/counter/screen/counter_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/dashboard/screen/dashboard_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/department/model/department_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/department/screen/add_department.dart';
@@ -232,6 +234,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => EmployeeReport());
       case reportDashboard:
         return MaterialPageRoute(builder: (_) => ReportWithDashboard());
+      case counter:
+        return MaterialPageRoute(builder: (_) => CounterPage());
+      case history:
+        return MaterialPageRoute(builder: (_) => CheckinHistoryPage());
       default:
         return _errorRoute();
     }

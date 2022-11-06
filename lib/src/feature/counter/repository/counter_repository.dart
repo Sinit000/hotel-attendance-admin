@@ -27,7 +27,7 @@ class CounterRepository {
     }
   }
 
-  Future<List<CheckinHistory>> getCheckinHistory(
+  Future<List<CheckinHistoryModel>> getCheckinHistory(
       {required int page, required int rowperpage}) async {
     try {
       String url =
@@ -35,9 +35,9 @@ class CounterRepository {
       Response response = await apiProvider.get(url, null, null);
 
       if (response.statusCode == 200) {
-        List<CheckinHistory> leave = [];
+        List<CheckinHistoryModel> leave = [];
         response.data["data"].forEach((data) {
-          leave.add(CheckinHistory.fromJson(data));
+          leave.add(CheckinHistoryModel.fromJson(data));
         });
         return leave;
       }
@@ -58,7 +58,13 @@ class CounterRepository {
       required String funeralLeave,
       required String maternityLeave}) async {
     try {
+      print(id);
       String url = mainUrl + "counters/edit/$id";
+      print(userId);
+      print(ot);
+      print(ph);
+      print(hospitalLeave);
+      print(marriageLeave);
       Map body = {
         "user_id": userId,
         "ot_duration": ot,

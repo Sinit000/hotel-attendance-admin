@@ -27,10 +27,11 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
 enum Env { Production, Developement }
 final Env env = Env.Production;
 void main() async {
-   HttpOverrides.global = MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: getServerEnvAssetPath(env));
   // await Firebase.initializeApp();

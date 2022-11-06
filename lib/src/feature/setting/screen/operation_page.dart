@@ -74,7 +74,7 @@ class _OperationPageState extends State<OperationPage> {
         "name": "${AppLocalizations.of(context)!.translate("timetable")!}",
         "iconColor": Colors.purple[300],
         "image": "assets/icon/calendar.png",
-        "onPressed": () { 
+        "onPressed": () {
           Navigator.pushNamed(context, timetable);
         }
       },
@@ -110,14 +110,25 @@ class _OperationPageState extends State<OperationPage> {
           Navigator.pushNamed(context, setting);
         }
       },
-      // {
-      //   "name": "${AppLocalizations.of(context)!.translate("export")!}",
-      //   "iconColor": Colors.redAccent[200],
-      //   "image": "assets/icon/export.png",
-      //   "onPressed": () {
-      //     dialogExport(context);
-      //   }
-      // },
+      {
+        "name": "${AppLocalizations.of(context)!.translate("counter")!}",
+        "iconColor": Colors.lightBlue[300],
+        "image": "assets/icon/tachometer.png",
+        "onPressed": () {
+          // dialogExport(context);
+          Navigator.pushNamed(context, counter);
+        }
+      },
+      {
+        "name":
+            "${AppLocalizations.of(context)!.translate("checkin_history")!}",
+        "iconColor": Colors.orange,
+        "image": "assets/icon/history.png",
+        "onPressed": () {
+          // dialogExport(context);
+          Navigator.pushNamed(context, history);
+        }
+      },
     ];
 
     // BlocProvider.of<AccountBloc>(context).add(FetchAccountStarted());

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/counter/bloc/counter_event.dart';
 import 'package:hotle_attendnce_admin/src/feature/counter/bloc/counter_state.dart';
 import 'package:hotle_attendnce_admin/src/feature/counter/model/checkin_history_model.dart';
@@ -9,7 +10,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   CounterBloc() : super(InitailizingCounter());
   CounterRepository counterRepository = CounterRepository();
   List<CounterModel> checkilist = [];
-  List<CheckinHistory> history = [];
+  List<CheckinHistoryModel> history = [];
   int rowperpage = 12;
   int page = 1;
   @override
@@ -61,6 +62,14 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
             funeralLeave: event.funeralLeave,
             maternityLeave: event.maternityLeave);
         yield AddedCounter();
+        yield FetchingCounter();
+        checkilist.clear();
+        page = 1;
+        List<CounterModel> _temlist = await counterRepository.getCounter(
+            page: page, rowperpage: rowperpage);
+        checkilist.addAll(_temlist);
+        page++;
+        yield FetchedCounter();
       } catch (e) {
         yield ErrorFetchingCounter(error: e.toString());
       }
@@ -70,7 +79,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       yield InitailizingHistory();
       try {
         page = 1;
-        List<CheckinHistory> _temlist = await counterRepository
+        List<CheckinHistoryModel> _temlist = await counterRepository
             .getCheckinHistory(page: page, rowperpage: rowperpage);
         history.addAll(_temlist);
         page++;
@@ -86,7 +95,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     if (event is FetchHistoryStarted) {
       yield FetchingHistory();
       try {
-        List<CheckinHistory> _temlist = await counterRepository
+        List<CheckinHistoryModel> _temlist = await counterRepository
             .getCheckinHistory(page: page, rowperpage: rowperpage);
         history.addAll(_temlist);
         page++;

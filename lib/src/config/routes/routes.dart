@@ -31,6 +31,8 @@ const String dayoff = '/dayoff';
 const String configuration = '/configuration';
 const String employeeReport = '/employeeReport';
 const String reportDashboard = '/reportDashboard';
+const String counter = '/counter';
+const String history = '/history';
 
 const String addHoliday = '/addHoliday';
 const String addNotification = '/addNotification';
