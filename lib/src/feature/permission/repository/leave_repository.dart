@@ -87,40 +87,40 @@ class LeaveRepository {
     }
   }
 
-  Future<void> editleave(
-      {required String id,
-      required String leavetypeId,
-      required String reason,
-      required String number,
-      required String fromDate,
-      required String employeeId,
-      required String toDate}) async {
-    try {
-      String url = mainUrl + "leaves/edit/$id";
-      Map body = {
-        // "type": "company",
-        "user_id": employeeId,
-        "reason": reason,
-        "number": number,
-        "from_date": fromDate,
-        // "date": date,
-        "to_date": toDate,
-        "leave_type_id": leavetypeId
-      };
-      Response response = await apiProvider.put(url, body);
+  // Future<void> editleave(
+  //     {required String id,
+  //     required String leavetypeId,
+  //     required String reason,
+  //     required String number,
+  //     required String fromDate,
+  //     required String employeeId,
+  //     required String toDate}) async {
+  //   try {
+  //     String url = mainUrl + "leaves/edit/$id";
+  //     Map body = {
+  //       // "type": "company",
+  //       "user_id": employeeId,
+  //       "reason": reason,
+  //       "number": number,
+  //       "from_date": fromDate,
+  //       // "date": date,
+  //       "to_date": toDate,
+  //       "leave_type_id": leavetypeId
+  //     };
+  //     Response response = await apiProvider.put(url, body);
 
-      print(response.statusCode);
-      if (response.statusCode == 200 && response.data["code"] == 0) {
-        print(response.data);
-        return;
-      } else if (response.data["code"].toString() != "0") {
-        throw response.data["message"];
-      }
-      throw CustomException.generalException();
-    } catch (e) {
-      throw e;
-    }
-  }
+  //     print(response.statusCode);
+  //     if (response.statusCode == 200 && response.data["code"] == 0) {
+  //       print(response.data);
+  //       return;
+  //     } else if (response.data["code"].toString() != "0") {
+  //       throw response.data["message"];
+  //     }
+  //     throw CustomException.generalException();
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
 
   Future<void> editleaveStatus({
     required String id,

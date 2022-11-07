@@ -40,7 +40,16 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   );
                 } else if (state is ErrorFetchingDashboard) {
                   return Center(
-                    child: Text(state.error.toString()),
+                    child: TextButton(
+                        onPressed: () {
+                          _dashBoardBloc.add(FetchDashboardStarted());
+                        },
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.teal,
+                          onSurface: Colors.grey,
+                        ),
+                        child: Text("Retry")),
                   );
                 }
                 return SmartRefresher(

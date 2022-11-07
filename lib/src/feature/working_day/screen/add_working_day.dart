@@ -40,6 +40,7 @@ class _AddWorkingDayState extends State<AddWorkingDay> {
             }
             if (state is ErrorAddingWorkingDay) {
               EasyLoading.dismiss();
+              print(state.error);
               errorSnackBar(text: state.error.toString(), context: context);
             }
             if (state is AddedWorkingDay) {
@@ -83,7 +84,7 @@ class _AddWorkingDayState extends State<AddWorkingDay> {
                       SizedBox(height: 15),
                       TextFormField(
                         controller: _workingdayCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(
                               left: 14.0,
@@ -106,7 +107,7 @@ class _AddWorkingDayState extends State<AddWorkingDay> {
                       SizedBox(height: 15),
                       TextFormField(
                         controller: _offdayCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(
                               left: 14.0,

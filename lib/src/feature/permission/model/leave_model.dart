@@ -43,6 +43,8 @@ class LeaveModel {
   final String? toDate;
   final String? reason;
   final String? number;
+  final String? leaveDeduction;
+    final String? type;
   final EmployeeModel? employeeModel;
   final LeaveTypeModel? leaveTypeModel;
   factory LeaveModel.fromJson(Map<String, dynamic> json) {
@@ -54,6 +56,8 @@ class LeaveModel {
         toDate: json["to_date"],
         number: json["number"],
         reason: json["reason"],
+        type: json["type"],
+        leaveDeduction: json["leave_deduction"].toString(),
         employeeModel:
             json["user"] == null ? null : EmployeeModel.fromJson(json["user"]),
         leaveTypeModel: json["leavetype"] == null
@@ -68,6 +72,8 @@ class LeaveModel {
       required this.toDate,
       required this.number,
       required this.reason,
+      required this.type,
+      required this.leaveDeduction,
       required this.employeeModel,
       required this.leaveTypeModel});
 }

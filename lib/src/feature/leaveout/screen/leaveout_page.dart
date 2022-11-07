@@ -46,7 +46,7 @@ class _WantedBodyState extends State<WantedBody> {
   @override
   void initState() {
     leaveOutBloc.add(
-        InitializeLeaveOutStarted(dateRange: "This week", isRefresh: 'yes'));
+        InitializeLeaveOutStarted(dateRange: "This week", isRefresh: 'no'));
     super.initState();
   }
 
@@ -55,7 +55,6 @@ class _WantedBodyState extends State<WantedBody> {
   late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     leaveOutBloc.close();
   }
@@ -72,7 +71,17 @@ class _WantedBodyState extends State<WantedBody> {
             );
           } else if (state is ErrorFetchingLeaveOut) {
             return Center(
-              child: Text(state.error),
+              child: TextButton(
+                  onPressed: () {
+                    leaveOutBloc.add(InitializeLeaveOutStarted(
+                        dateRange: "This week", isRefresh: 'yes'));
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text("Retry")),
             );
           } else {
             return Column(
@@ -412,10 +421,13 @@ class _WantedBodyState extends State<WantedBody> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leaveOutModel.approveby}",
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  leaveOutModel.approveby == null ||
+                          leaveOutModel.approveby == "null"
+                      ? Text("")
+                      : Text(
+                          "${leaveOutModel.approveby}",
+                          style: TextStyle(color: Colors.red),
+                        ),
                 ],
               ),
               SizedBox(
@@ -430,10 +442,13 @@ class _WantedBodyState extends State<WantedBody> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leaveOutModel.checkby}",
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  leaveOutModel.checkby == null ||
+                          leaveOutModel.checkby == "null"
+                      ? Text("")
+                      : Text(
+                          "${leaveOutModel.checkby}",
+                          style: TextStyle(color: Colors.red),
+                        ),
                 ],
               ),
               SizedBox(

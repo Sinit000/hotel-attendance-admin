@@ -68,7 +68,17 @@ class _BodyState extends State<Body> {
           }
           if (state is ErrorFetchingDayOff) {
             return Center(
-              child: Text(state.error.toString()),
+              child: TextButton(
+                  onPressed: () {
+                    _changeDayOffBloc.add(InitializeDayOffStarted(
+                        dateRange: "This month", isSecond: true));
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text("Retry")),
             );
           } else {
             // print(_reportBloc.dateRange!);

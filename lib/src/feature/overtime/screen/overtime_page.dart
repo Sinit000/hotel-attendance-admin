@@ -23,16 +23,17 @@ class Overtimepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, "Overtime page"),
-      floatingActionButton: Container(
-        child: FloatingActionButton(
-            backgroundColor: Colors.blue,
-            child: Icon(Icons.add),
-            elevation: 0,
-            onPressed: () {
-              Navigator.pushNamed(context, addOvertime);
-            }),
-      ),
+      appBar: standardAppBar(
+          context, "${AppLocalizations.of(context)!.translate("ot")!}"),
+      // floatingActionButton: Container(
+      //   child: FloatingActionButton(
+      //       backgroundColor: Colors.blue,
+      //       child: Icon(Icons.add),
+      //       elevation: 0,
+      //       onPressed: () {
+      //         Navigator.pushNamed(context, addOvertime);
+      //       }),
+      // ),
       body: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10), child: Body()),
     );

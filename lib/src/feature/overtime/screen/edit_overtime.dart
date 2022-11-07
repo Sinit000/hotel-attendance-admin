@@ -185,15 +185,16 @@ class _EditOvertimeState extends State<EditOvertime> {
                           SizedBox(height: 15),
                           TextFormField(
                             controller: _usrCtrl,
-                            onTap: () {
-                              _employeeBloc.add(FetchAllEmployeeStarted());
-                            },
+                            // onTap: () {
+                            //   _employeeBloc.add(FetchAllEmployeeStarted());
+                            // },
+                            enabled: false,
 
                             readOnly: true,
                             // keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.arrow_drop_down),
-                                fillColor: Colors.grey.shade100,
+                                // suffixIcon: Icon(Icons.arrow_drop_down),
+                                fillColor: Colors.grey[300],
                                 filled: true,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: new BorderSide(
@@ -205,18 +206,20 @@ class _EditOvertimeState extends State<EditOvertime> {
                                 ),
                                 labelText:
                                     "${AppLocalizations.of(context)!.translate("choose_username")!}"),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'user name is required.';
-                              }
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if (value!.isEmpty) {
+                            //     return 'user name is required.';
+                            //   }
+                            //   return null;
+                            // },
                           ),
                           SizedBox(height: 15),
                           TextFormField(
                             controller: _reasonCtrl,
                             keyboardType: TextInputType.text,
                             maxLines: null,
+                            enabled: false,
+                            readOnly: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
@@ -244,7 +247,10 @@ class _EditOvertimeState extends State<EditOvertime> {
                             // keyboardType: TextInputType.multiline,
                             // minLines: 5,
                             // maxLines: 20,
+
+                            // keyboardType: TextInputType.text,
                             decoration: InputDecoration(
+                                // suffixIcon: Icon(Icons.arrow_drop_down),
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 focusedBorder: OutlineInputBorder(
@@ -268,16 +274,17 @@ class _EditOvertimeState extends State<EditOvertime> {
                           TextFormField(
                             controller: _fromCtrl,
                             readOnly: true,
+                            enabled: false,
                             // keyboardType: TextInputType.text,
-                            onTap: () {
-                              _dialogDate(controller: _fromCtrl);
-                            },
+                            // onTap: () {
+                            //   _dialogDate(controller: _fromCtrl);
+                            // },
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.date_range_outlined,
                                   color: Colors.lightBlue,
                                 ),
-                                fillColor: Colors.grey.shade100,
+                                fillColor: Colors.grey[300],
                                 filled: true,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: new BorderSide(
@@ -301,15 +308,16 @@ class _EditOvertimeState extends State<EditOvertime> {
                             controller: _toCtrl,
                             // keyboardType: TextInputType.text,
                             readOnly: true,
-                            onTap: () {
-                              _dialogDate(controller: _toCtrl);
-                            },
+                            enabled: false,
+                            // onTap: () {
+                            //   _dialogDate(controller: _toCtrl);
+                            // },
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.date_range_outlined,
                                   color: Colors.lightBlue,
                                 ),
-                                fillColor: Colors.grey.shade100,
+                                fillColor: Colors.grey[300],
                                 filled: true,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: new BorderSide(
@@ -331,7 +339,7 @@ class _EditOvertimeState extends State<EditOvertime> {
                           SizedBox(height: 15),
                           TextFormField(
                             controller: _otMethodCtrl,
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.phone,
                             // keyboardType: TextInputType.multiline,
                             // minLines: 5,
                             // maxLines: 20,

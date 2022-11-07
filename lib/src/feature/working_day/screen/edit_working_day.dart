@@ -98,7 +98,7 @@ class _EditWorkingDayState extends State<EditWorkingDay> {
                       SizedBox(height: 15),
                       TextFormField(
                         controller: _workingdayCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(
                               left: 14.0,
@@ -121,7 +121,7 @@ class _EditWorkingDayState extends State<EditWorkingDay> {
                       SizedBox(height: 15),
                       TextFormField(
                         controller: _offdayCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(
                               left: 14.0,

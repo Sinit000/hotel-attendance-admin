@@ -116,7 +116,7 @@ class _AddStructureState extends State<AddStructure> {
                           // readOnly: true,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.arrow_drop_down),
+                              // suffixIcon: Icon(Icons.arrow_drop_down),
                               contentPadding: const EdgeInsets.only(
                                 left: 14.0,
                               ),

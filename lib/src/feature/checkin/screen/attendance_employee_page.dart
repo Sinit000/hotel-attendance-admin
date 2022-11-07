@@ -69,7 +69,16 @@ class _BodyState extends State<Body> {
           if (state is ErrorFetchingEmployee) {
             // Helper.handleState(state: state.error, context: context);
             return Center(
-              child: Text(state.error),
+              child: TextButton(
+                  onPressed: () {
+                    employeeBloc.add(RefreshEmployeeStarted());
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text("Retry")),
             );
           }
           return BlocListener(
