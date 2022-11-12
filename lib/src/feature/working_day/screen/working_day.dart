@@ -21,7 +21,7 @@ class WorkingDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, "Working Day"),
+      appBar: standardAppBar(context, "${AppLocalizations.of(context)!.translate("workday")!}"),
       body: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10), child: Body()),
       floatingActionButton: Container(
@@ -141,7 +141,7 @@ class _BodyState extends State<Body> {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    "Name :",
+                    "${AppLocalizations.of(context)!.translate("name")!} :",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -163,7 +163,7 @@ class _BodyState extends State<Body> {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    "Work Day :",
+                    "${AppLocalizations.of(context)!.translate("workday")!} :",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -185,7 +185,7 @@ class _BodyState extends State<Body> {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    "Off day :",
+                    "${AppLocalizations.of(context)!.translate("off_day")!} :",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -210,7 +210,7 @@ class _BodyState extends State<Body> {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    "Notes :",
+                    "${AppLocalizations.of(context)!.translate("notes")!} :",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),

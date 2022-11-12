@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/auth/bloc/index.dart';
+import 'package:hotle_attendnce_admin/src/feature/notification/screen/announcement_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/notification/screen/notification_page.dart';
 import 'package:flutter/material.dart';
 
@@ -54,14 +55,19 @@ class _MyAppBarState extends State<MyAppBar> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Alert'),
-                              content: Text("Do you want to leave?"),
+                              title: Text(
+                                  "${AppLocalizations.of(context)!.translate("alert")!}"),
+                              content: Text(
+                                  "${AppLocalizations.of(context)!.translate("alert_text")!}"),
                               actions: <Widget>[
                                 FlatButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('No',style: TextStyle(color: Colors.red),),
+                                  child: Text(
+                                    "${AppLocalizations.of(context)!.translate("no")!}",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
                                 ),
                                 FlatButton(
                                   onPressed: () {
@@ -70,7 +76,9 @@ class _MyAppBarState extends State<MyAppBar> {
                                     Navigator.pop(context);
                                     // Navigator.pop(context);
                                   },
-                                  child: Text('Yes',style: TextStyle(color: Colors.blue)),
+                                  child: Text(
+                                      "${AppLocalizations.of(context)!.translate("yes")!}",
+                                      style: TextStyle(color: Colors.blue)),
                                 ),
                               ],
                             );
@@ -98,7 +106,11 @@ class _MyAppBarState extends State<MyAppBar> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, notification);
+                      // Navigator.pushNamed(context, notification);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AnnouncementPage()));
                     },
                     child: Container(
                       width: 45,

@@ -5,6 +5,8 @@ import 'package:hotle_attendnce_admin/src/feature/employee/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/all_attendance_report.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/employee_attendnace_report.dart';
 
+import '../../../appLocalizations.dart';
+
 class AttendanceReport extends StatefulWidget {
   const AttendanceReport({Key? key}) : super(key: key);
 
@@ -25,7 +27,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
           // backgroundColor: HexColor("#ff4e00"),
           centerTitle: true,
           title: Text(
-            'Attendance Report',
+            "${AppLocalizations.of(context)!.translate("attendance_Report")!}",
             style: TextStyle(color: Colors.white),
           ),
           bottom: TabBar(
@@ -33,11 +35,11 @@ class _AttendanceReportState extends State<AttendanceReport> {
             indicatorWeight: 2,
             tabs: [
               Tab(
-                child: Text("All ", style: TextStyle(color: Colors.white)),
+                child: Text("${AppLocalizations.of(context)!.translate("all")!}", style: TextStyle(color: Colors.white)),
               ),
               Tab(
                 child:
-                    Text("By Employee", style: TextStyle(color: Colors.white)),
+                    Text("${AppLocalizations.of(context)!.translate("by_employee")!}", style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

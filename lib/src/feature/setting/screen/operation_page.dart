@@ -103,11 +103,12 @@ class _OperationPageState extends State<OperationPage> {
         }
       },
       {
-        "name": "${AppLocalizations.of(context)!.translate("setting")!}",
+        "name": "${AppLocalizations.of(context)!.translate("chooseLang")!}",
         "iconColor": Colors.redAccent[200],
-        "image": "assets/icon/setting.png",
+        "image": "assets/icon/language.png",
         "onPressed": () {
-          Navigator.pushNamed(context, setting);
+          // Navigator.pushNamed(context, setting);
+          languageModal(context);
         }
       },
       {
@@ -134,7 +135,10 @@ class _OperationPageState extends State<OperationPage> {
     // BlocProvider.of<AccountBloc>(context).add(FetchAccountStarted());
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.2),
-      appBar: standardAppBar(context, "Operation page"),
+      appBar: standardAppBar(
+        context,
+        "${AppLocalizations.of(context)!.translate("operation")!}",
+      ),
       body: ListView(
         clipBehavior: Clip.none,
         children: [

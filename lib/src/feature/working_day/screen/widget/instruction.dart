@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../appLocalizations.dart';
+
 class Instruction extends StatelessWidget {
   const Instruction({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class Instruction extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Please enter number only(0-6) for working day and off day. Notes that, 0 is Sunday, 6 is Saturday,1 -> 5 Monday-Friday",
+            "${AppLocalizations.of(context)!.translate("pleate_enter")!}",
             textScaleFactor: 1.2,
           ),
           SizedBox(
@@ -26,7 +28,7 @@ class Instruction extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Working day : ",
+                "${AppLocalizations.of(context)!.translate("workday")!} : ",
                 textScaleFactor: 1.2,
               ),
               Text(
@@ -43,7 +45,7 @@ class Instruction extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Off day : ",
+                "${AppLocalizations.of(context)!.translate("off_day")!} : ",
                 textScaleFactor: 1.2,
               ),
               Text(

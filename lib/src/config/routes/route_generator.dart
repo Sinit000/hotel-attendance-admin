@@ -114,8 +114,8 @@ class RouteGenerator {
 
       case report:
         return MaterialPageRoute(builder: (_) => ReportPage());
-      case notification:
-        return MaterialPageRoute(builder: (_) => NotificationPage());
+      // case notification:
+      //   return MaterialPageRoute(builder: (_) => NotificationPage());
       case addNotification:
         return MaterialPageRoute(builder: (_) => AddNotification());
       case addDepartment:

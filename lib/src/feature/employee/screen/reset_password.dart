@@ -9,13 +9,16 @@ import 'package:hotle_attendnce_admin/src/shared/widget/error_snackbar.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/loadin_dialog.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
 
+import '../../../appLocalizations.dart';
+
 class ResetPassword extends StatelessWidget {
   // const ResetPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, ""),
+      appBar: standardAppBar(context,
+          "${AppLocalizations.of(context)!.translate("reset_password")!}"),
       body: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10), child: Body()),
     );
@@ -93,18 +96,18 @@ class _BodyState extends State<Body> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Center(
-                  child: Text(
-                    "Change password",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0,
-                    ),
-                    textScaleFactor: 1.4,
-                    // textAlign: TextAlign.center,
-                  ),
-                ),
+                // Center(
+                //   child: Text(
+                //     "Change password",
+                //     style: TextStyle(
+                //       color: Colors.black,
+                //       fontWeight: FontWeight.bold,
+                //       letterSpacing: 0,
+                //     ),
+                //     textScaleFactor: 1.4,
+                //     // textAlign: TextAlign.center,
+                //   ),
+                // ),
                 // SizedBox(
                 //   height: 20,
                 // ),
@@ -152,7 +155,8 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       isDense: true,
-                      labelText: "Select Employee"),
+                      labelText:
+                          "${AppLocalizations.of(context)!.translate("choose_employee")!}"),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Employee is required';
@@ -200,7 +204,8 @@ class _BodyState extends State<Body> {
                         width: 1,
                       ),
                     ),
-                    labelText: 'New Password',
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("newpassword")!}',
                     // filled: true,
                     isDense: true,
                   ),
@@ -229,7 +234,8 @@ class _BodyState extends State<Body> {
                           width: 1,
                         ),
                       ),
-                      labelText: 'Confirm Password',
+                      labelText:
+                          '${AppLocalizations.of(context)!.translate("confirmnewPassword")!}',
                       //  filled: true,
                       isDense: true,
                     ),
@@ -270,7 +276,8 @@ class _BodyState extends State<Body> {
                         }
                       },
                       child: Text(
-                        'Change password'.toUpperCase(),
+                        '${AppLocalizations.of(context)!.translate("changepassword")!}'
+                            .toUpperCase(),
                         style: TextStyle(
                           color: Colors.white,
                           // letterSpacing: 1,

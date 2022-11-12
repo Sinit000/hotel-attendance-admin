@@ -10,6 +10,7 @@ import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_model.
 import 'package:hotle_attendnce_admin/src/feature/employee/screen/employee_page.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../appLocalizations.dart';
 import 'action_btn.dart';
 
 class AttendanceTile extends StatefulWidget {
@@ -102,17 +103,20 @@ class _AttendanceTileState extends State<AttendanceTile> {
                   children: [
                     widget.employeeModel.checkinStatus == "leave"
                         ? actionButton(
-                            title: "Leave",
+                            title:
+                                "${AppLocalizations.of(context)!.translate("leave")!}",
                             color: Colors.red,
                           )
                         : widget.employeeModel.checkinStatus == "present"
                             ? actionButton(
-                                title: "Present",
+                                title:
+                                    "${AppLocalizations.of(context)!.translate("present")!}",
                                 color: Colors.lightBlue,
                               )
                             : widget.employeeModel.checkinStatus == "false"
                                 ? actionButton(
-                                    title: "Checkin",
+                                    title:
+                                        "${AppLocalizations.of(context)!.translate("btn_checkin")!}",
                                     color: Colors.green,
                                     onPressed: () {
                                       checkinTime = checkin!.substring(11, 19);
@@ -125,11 +129,13 @@ class _AttendanceTileState extends State<AttendanceTile> {
                                     })
                                 : widget.employeeModel.checkinStatus == "absent"
                                     ? actionButton(
-                                        title: "Absent",
+                                        title:
+                                            "${AppLocalizations.of(context)!.translate("absent")!}",
                                         color: Colors.red,
                                       )
                                     : actionButton(
-                                        title: "Checkout",
+                                        title:
+                                            "${AppLocalizations.of(context)!.translate("btn_checkout")!}",
                                         color: Colors.amberAccent[700]!,
                                         onPressed: () {
                                           checkinTime =

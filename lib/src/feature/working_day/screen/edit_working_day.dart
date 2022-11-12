@@ -161,7 +161,8 @@ class _EditWorkingDayState extends State<EditWorkingDay> {
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       standardBtn(
-                          title: "Update",
+                          title:
+                              "${AppLocalizations.of(context)!.translate("update")!}",
                           onTap: () {
                             if (_formKey!.currentState!.validate()) {
                               workingDayBloc.add(UpdateWorkingdayStarted(

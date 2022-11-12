@@ -14,6 +14,8 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../appLocalizations.dart';
+
 class AttendanceEmployeePage extends StatelessWidget {
   const AttendanceEmployeePage({Key? key}) : super(key: key);
 
@@ -21,7 +23,8 @@ class AttendanceEmployeePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.2),
-      appBar: standardAppBar(context, "Employee Attendance"),
+      appBar: standardAppBar(
+          context, "${AppLocalizations.of(context)!.translate("attendance")!}"),
       body: Container(
         child: Body(),
       ),
@@ -78,7 +81,8 @@ class _BodyState extends State<Body> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           }
           return BlocListener(

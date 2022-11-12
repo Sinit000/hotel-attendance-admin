@@ -81,7 +81,8 @@ class _WantedBodyState extends State<WantedBody> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             return Column(
@@ -137,7 +138,8 @@ class _WantedBodyState extends State<WantedBody> {
                 ),
                 leaveOutBloc.leaveout.length == 0
                     ? Container(
-                        child: Text("No data"),
+                        child: Text(
+                            "${AppLocalizations.of(context)!.translate("no_data")!}"),
                       )
                     : Expanded(
                         child: SmartRefresher(
@@ -335,7 +337,9 @@ class _WantedBodyState extends State<WantedBody> {
             builder: (c) {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
-                controller.expanded ? "Click to Hide" : "Click to view",
+                controller.expanded
+                    ? "${AppLocalizations.of(context)!.translate("view")!}"
+                    : "${AppLocalizations.of(context)!.translate("hide")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

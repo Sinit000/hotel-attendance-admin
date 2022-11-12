@@ -373,13 +373,19 @@ class _AllLeaveReportState extends State<AllLeaveReport> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Text(
-                      "${AppLocalizations.of(context)!.translate("type_display")!} :",
+                      "${AppLocalizations.of(context)!.translate("duration")!} :",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leavemodel.type}",
-                  ),
+                  leavemodel.type == "hour" ||
+                          leavemodel.type == "half_day_m" ||
+                          leavemodel.type == "half_day_n"
+                      ? Text(
+                          "${leavemodel.duration} hour",
+                        )
+                      : Text(
+                          "${leavemodel.duration} day",
+                        ),
                 ],
               ),
               SizedBox(

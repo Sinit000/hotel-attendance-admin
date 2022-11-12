@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:location/location.dart';
 
+import '../../../../appLocalizations.dart';
+
 class LatLong extends StatefulWidget {
   const LatLong({Key? key}) : super(key: key);
 
@@ -103,7 +105,7 @@ class _LatLongState extends State<LatLong> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Enter this latitude and longtitude"),
+          Text("${AppLocalizations.of(context)!.translate("enter_lat_lon")!}"),
           SizedBox(
             height: 5,
           ),
@@ -112,7 +114,7 @@ class _LatLongState extends State<LatLong> {
               : Row(
                   children: [
                     Text(
-                      "Latitude : ",
+                      "${AppLocalizations.of(context)!.translate("lat")!} : ",
                       textScaleFactor: 1.3,
                     ),
                     SelectableText("$lat",
@@ -128,7 +130,8 @@ class _LatLongState extends State<LatLong> {
               ? Container()
               : Row(
                   children: [
-                    Text("Longtitude : "),
+                    Text(
+                        "${AppLocalizations.of(context)!.translate("lon")!} : "),
                     SelectableText("$lot",
                         textScaleFactor: 1.3,
                         style: TextStyle(

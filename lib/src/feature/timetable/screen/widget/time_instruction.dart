@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../appLocalizations.dart';
+
 class TimeInstruction extends StatelessWidget {
   const TimeInstruction({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class TimeInstruction extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Please notes that Late minutes : meaning how many minutes that count to be late and for Early minutes : how many minutes that employee can leave from workplace",
+            "${AppLocalizations.of(context)!.translate("enter_timetable")!}",
             textScaleFactor: 1.2,
           ),
           SizedBox(
@@ -26,7 +28,7 @@ class TimeInstruction extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Late minutes : ",
+                "${AppLocalizations.of(context)!.translate("late_minute")!} : ",
                 textScaleFactor: 1.2,
               ),
               Text(
@@ -43,7 +45,7 @@ class TimeInstruction extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Early minutes : ",
+                "${AppLocalizations.of(context)!.translate("early_leave")!} : ",
                 textScaleFactor: 1.2,
               ),
               Text(

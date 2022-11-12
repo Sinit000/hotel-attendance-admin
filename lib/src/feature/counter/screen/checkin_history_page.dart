@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text("${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             // print(_reportBloc.dateRange!);
@@ -219,7 +219,9 @@ class _BodyState extends State<Body> {
             builder: (c) {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
-                controller.expanded ? "Click to Hide" : "Click to view",
+                controller.expanded
+                    ? "${AppLocalizations.of(context)!.translate("hide")!}"
+                    : "${AppLocalizations.of(context)!.translate("show")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },
@@ -227,46 +229,6 @@ class _BodyState extends State<Body> {
           collapsed: Center(),
           expanded: Column(
             children: [
-              SizedBox(
-                height: 5.0,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Text(
-                      "${AppLocalizations.of(context)!.translate("checkin_time")!} : ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "${counterModel.checkinTime}",
-                        style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Text(
-                      "${AppLocalizations.of(context)!.translate("checkin_status")!} : ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  Text(
-                    "${counterModel.checkinStatus}",
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 5.0,
               ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/all_leave_report.dart';
 
+import '../../../appLocalizations.dart';
 import 'employee_leave_report.dart';
 
 class LeaveReport extends StatelessWidget {
@@ -20,7 +21,7 @@ class LeaveReport extends StatelessWidget {
           // backgroundColor: HexColor("#ff4e00"),
           centerTitle: true,
           title: Text(
-            'Leave Report',
+            "${AppLocalizations.of(context)!.translate("leave_report")!}",
             style: TextStyle(color: Colors.white),
           ),
           bottom: TabBar(
@@ -28,11 +29,14 @@ class LeaveReport extends StatelessWidget {
             indicatorWeight: 2,
             tabs: [
               Tab(
-                child: Text("All ", style: TextStyle(color: Colors.white)),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("all")!}",
+                    style: TextStyle(color: Colors.white)),
               ),
               Tab(
-                child:
-                    Text("By Employee", style: TextStyle(color: Colors.white)),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("by_employee")!}",
+                    style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

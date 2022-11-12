@@ -85,7 +85,8 @@ class _WantedBodyState extends State<WantedBody> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             return Column(
@@ -141,19 +142,16 @@ class _WantedBodyState extends State<WantedBody> {
                 ),
                 leaveBloc.leavemodel.length == 0
                     ? Container(
-                        child: Text("No data"),
+                        child: Text(
+                            "${AppLocalizations.of(context)!.translate("no_data")!}"),
                       )
                     : Expanded(
                         child: SmartRefresher(
                         onRefresh: () {
-                          print("fetch dateRange");
-                          print(mydateRage);
                           leaveBloc.add(InitializeLeaveStarted(
                               dateRange: mydateRage, isRefresh: true));
                         },
                         onLoading: () {
-                          print("fetch dateRange");
-                          print(mydateRage);
                           leaveBloc
                               .add(FetchLeaveStarted(dateRange: mydateRage));
                         },
@@ -365,13 +363,15 @@ class _WantedBodyState extends State<WantedBody> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  leavemodel.type == "hour"
+                  leavemodel.type == "hour" ||
+                          leavemodel.type == "half_day_m" ||
+                          leavemodel.type == "half_day_n"
                       ? Text(
-                          "${leavemodel.number}  hour",
+                          "${leavemodel.number} hour",
                         )
                       : Text(
-                          "${leavemodel.number}  day",
-                        ),
+                          "${leavemodel.number} day",
+                        )
                 ],
               ),
               SizedBox(
@@ -469,7 +469,7 @@ class _WantedBodyState extends State<WantedBody> {
                                   context: context, id: leavemodel.id);
                             },
                             child: Text(
-                              "Approve",
+                              "${AppLocalizations.of(context)!.translate("approve")!}",
                               style: TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.5,
@@ -498,7 +498,7 @@ class _WantedBodyState extends State<WantedBody> {
                                   deduction: "0"));
                             },
                             child: Text(
-                              "Reject",
+                              "${AppLocalizations.of(context)!.translate("reject")!}",
                               style: TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.5,
@@ -551,7 +551,9 @@ class _WantedBodyState extends State<WantedBody> {
                 }
               },
               child: AlertDialog(
-                title: Text('Leave deduction'),
+                title: Text(
+                  "${AppLocalizations.of(context)!.translate("leave_deduction")!}",
+                ),
                 content: Container(
                   // height: MediaQuery.of(context).size.height / 3,
                   child: Form(
@@ -571,10 +573,11 @@ class _WantedBodyState extends State<WantedBody> {
                               ),
                             ),
                             isDense: true,
-                            labelText: "Enter deduction"),
+                            labelText:
+                                "${AppLocalizations.of(context)!.translate("enter_leave_deduction")!}"),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'type is required.';
+                            return 'deduction is required.';
                           }
                           return null;
                         },
@@ -584,7 +587,8 @@ class _WantedBodyState extends State<WantedBody> {
                   FlatButton(
                     color: Colors.red,
                     textColor: Colors.white,
-                    child: Text('CANCEL'),
+                    child: Text(
+                        "${AppLocalizations.of(context)!.translate("cancel")!}"),
                     onPressed: () {
                       Navigator.pop(context);
                       _textFieldController.clear();
@@ -593,18 +597,10 @@ class _WantedBodyState extends State<WantedBody> {
                   FlatButton(
                     color: Colors.green,
                     textColor: Colors.white,
-                    child: Text('OK'),
+                    child: Text(
+                        "${AppLocalizations.of(context)!.translate("submit")!}"),
                     onPressed: () {
                       if (_formKey!.currentState!.validate()) {
-                        // String status = "";
-                        // if (_textFieldController.text == "Approve") {
-                        //   status = "approved";
-                        // }
-                        // if (_textFieldController.text == "Reject") {
-                        //   status = "rejected";
-                        // }
-                        // print(status);
-                        // print(id);
                         leaveBloc.add(UpdateLeaveStatusStarted(
                             id: id,
                             status: "approved",

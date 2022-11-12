@@ -33,7 +33,7 @@ class _AddHolidayState extends State<AddHoliday> {
   @override
   void initState() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy/MM/dd').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     // String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
     dateToday = formattedDate.toString();
 
@@ -52,7 +52,7 @@ class _AddHolidayState extends State<AddHoliday> {
       } else {
         setState(() {
           date = value;
-          String formateDate = DateFormat('yyyy/MM/dd').format(date!);
+          String formateDate = DateFormat('yyyy-MM-dd').format(date!);
           controller.text = formateDate.toString();
         });
       }

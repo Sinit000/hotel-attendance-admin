@@ -516,9 +516,15 @@ class _EmployeeLeaveReportState extends State<EmployeeLeaveReport> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leavemodel.type}",
-                  ),
+                  leavemodel.type == "hour" ||
+                          leavemodel.type == "half_day_m" ||
+                          leavemodel.type == "half_day_n"
+                      ? Text(
+                          "${leavemodel.duration} hour",
+                        )
+                      : Text(
+                          "${leavemodel.duration} day",
+                        )
                 ],
               ),
               SizedBox(

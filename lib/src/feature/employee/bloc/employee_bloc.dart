@@ -129,6 +129,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
           print(image);
         }
         await _departmentRepository.addEmployee(
+            no: event.no,
             roleId: event.roleId,
             nationality: event.nationality,
             cardNumber: event.cardNumber,
@@ -181,7 +182,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
             cardNumber: event.cardNumber,
             timetalbeId: event.timetalbeId,
             workdayId: event.workdayId,
-            // roleId: event.roleId,
+            no: event.no,
             id: event.id,
             name: event.name,
             gender: event.gender,

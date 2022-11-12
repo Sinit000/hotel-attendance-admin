@@ -108,12 +108,7 @@ class _BodyState extends State<Body> {
               holidayBloc.add(InitializeHolidayStarted(isRefresh: true));
             },
             onLoading: () {
-              if (holidayBloc.state is EndOfHolidayList) {
-                _refreshController.loadNoData();
-                print("no data");
-              } else {
-                holidayBloc.add(FetchHolidayStarted());
-              }
+              holidayBloc.add(FetchHolidayStarted());
             },
             child: ListView.builder(
                 itemCount: holidayBloc.holidaylist.length,
@@ -193,11 +188,13 @@ class _BodyState extends State<Body> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "${holidayModel.notes} ",
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.bold),
-                    ),
+                    holidayModel.notes == null || holidayModel.notes == "null"
+                        ? Text("")
+                        : Text(
+                            "${holidayModel.notes} ",
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
                     // Text("- "),
                     // Text(
                     //   " ${BlocProvider.of<WantedBloc>(context).wantedList[index].maxPrice}",
@@ -212,9 +209,6 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 5.0,
             ),
-            SizedBox(
-              height: 5.0,
-            ),
             Row(
               children: [
                 Padding(
@@ -225,8 +219,29 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Text(
-                  "${holidayModel.fromDate}",
+                  "${holidayModel.fromDate} ${AppLocalizations.of(context)!.translate("to")!} ${holidayModel.toDate}",
                 ),
+              ],
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Text(
+                    "${AppLocalizations.of(context)!.translate("duration")!} :",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                holidayModel.duration != "1"
+                    ? Text(
+                        "${holidayModel.duration} days",
+                      )
+                    : Text(
+                        "${holidayModel.duration} day",
+                      ),
               ],
             ),
             SizedBox(
@@ -250,21 +265,23 @@ class _BodyState extends State<Body> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CupertinoButton(
-                    padding: EdgeInsets.all(1.0),
-                    color: Colors.blue,
-                    child: Row(
-                      children: [
-                        Icon(Icons.edit),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (con) =>
-                                  EditHoliday(holidayModel: holidayModel)));
-                    }),
+                holidayModel.status == "pending"
+                    ? CupertinoButton(
+                        padding: EdgeInsets.all(1.0),
+                        color: Colors.blue,
+                        child: Row(
+                          children: [
+                            Icon(Icons.edit),
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (con) =>
+                                      EditHoliday(holidayModel: holidayModel)));
+                        })
+                    : Container(),
                 SizedBox(
                   width: 5,
                 ),

@@ -32,10 +32,19 @@ class NotificationRepository {
   Future<void> addNotification({
     required String title,
     required String des,
+    required String date,
+    required String time,
+    required String userId,
   }) async {
     try {
       String url = mainUrl + "notifications/add";
-      Map body = {"title": title, "body": des};
+      Map body = {
+        "title": title,
+        "body": des,
+        "date": date,
+        "time": time,
+        "user_id": userId
+      };
       Response response = await apiProvider.post(url, body, null);
 
       print(response.statusCode);
@@ -55,10 +64,20 @@ class NotificationRepository {
     required String id,
     required String title,
     required String des,
+    required String date,
+    required String time,
+    required String userId,
   }) async {
     try {
       String url = mainUrl + "notifications/edit/$id";
-      Map body = {"title": title, "body": des};
+      Map body = {
+        "title": title,
+        "body": des,
+        "date": date,
+        "time": time,
+        "user_id": userId
+      };
+      print(userId);
       Response response = await apiProvider.put(url, body);
 
       print(response.statusCode);

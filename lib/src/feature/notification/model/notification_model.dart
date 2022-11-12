@@ -32,26 +32,37 @@
 class NotificationModel {
   final String id;
   final String comment;
-  // final String date;
-  // final String target;
-  // final String targetValue;
+
+  final String? date;
+  final String? userId;
+  // final String? targetValue;
   final String title;
+  final String? time;
+  final String? createDate;
+  final String status;
+  final String username;
 
   NotificationModel(
       {required this.id,
       required this.comment,
-      // required this.date,
-      // required this.target,
-      // required this.targetValue,
+      required this.userId,
+      required this.date,
+      required this.createDate,
+      required this.time,
+      required this.status,
+      required this.username,
       required this.title});
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
         id: json['id'].toString(),
         comment: json["body"],
-        // date: json['date'],
-        // target: json['target'],
-        // targetValue: json['target_value'],
+        date: json['date'],
+        userId: json['user_id'].toString(),
+        createDate: json['created_at'].toString(),
+        time: json["time"].toString(),
+        username: json["username"].toString(),
+        status: json["status"].toString(),
         title: json["title"]);
   }
 }

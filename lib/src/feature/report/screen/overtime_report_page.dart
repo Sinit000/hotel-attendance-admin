@@ -6,6 +6,8 @@ import 'package:hotle_attendnce_admin/src/feature/report/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/all_overtime_report.dart';
 import 'package:hotle_attendnce_admin/src/feature/report/screen/employee_overtime_report.dart';
 
+import '../../../appLocalizations.dart';
+
 class OvertimeReportPage extends StatefulWidget {
   const OvertimeReportPage({Key? key}) : super(key: key);
 
@@ -26,7 +28,7 @@ class _OvertimeReportPageState extends State<OvertimeReportPage> {
           // backgroundColor: HexColor("#ff4e00"),
           centerTitle: true,
           title: Text(
-            'Overtime Report',
+            "${AppLocalizations.of(context)!.translate("overtime_report")!}",
             style: TextStyle(color: Colors.white),
           ),
           bottom: TabBar(
@@ -34,11 +36,14 @@ class _OvertimeReportPageState extends State<OvertimeReportPage> {
             indicatorWeight: 2,
             tabs: [
               Tab(
-                child: Text("All ", style: TextStyle(color: Colors.white)),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("all")!}",
+                    style: TextStyle(color: Colors.white)),
               ),
               Tab(
-                child:
-                    Text("By Employee", style: TextStyle(color: Colors.white)),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("by_employee")!}",
+                    style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
@@ -54,8 +59,9 @@ class _OvertimeReportPageState extends State<OvertimeReportPage> {
                     print(BlocProvider.of<EmployeeBloc>(context)
                         .emploList
                         .length);
-                    return EmployeeOvertimeReport(employeeModel:BlocProvider.of<EmployeeBloc>(context)
-                        .emploList);
+                    return EmployeeOvertimeReport(
+                        employeeModel:
+                            BlocProvider.of<EmployeeBloc>(context).emploList);
                   }
                   return Center();
                 })

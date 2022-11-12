@@ -76,7 +76,8 @@ class _BodyState extends State<Body> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             // print(_reportBloc.dateRange!);
@@ -134,7 +135,8 @@ class _BodyState extends State<Body> {
                 ),
                 _otCompesationBloc.otComList.length == 0
                     ? Container(
-                        child: Text("No data"),
+                        child: Text(
+                            "${AppLocalizations.of(context)!.translate("no_data")!}"),
                       )
                     : Expanded(
                         child: SmartRefresher(
@@ -342,7 +344,9 @@ class _BodyState extends State<Body> {
             builder: (c) {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
-                controller.expanded ? "Click to Hide" : "Click to view",
+                controller.expanded
+                    ? "${AppLocalizations.of(context)!.translate("view")!}"
+                    : "${AppLocalizations.of(context)!.translate("hide")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },
@@ -353,23 +357,23 @@ class _BodyState extends State<Body> {
               // SizedBox(
               //   height: 5.0,
               // ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Text(
-                      "${AppLocalizations.of(context)!.translate("type_ot")!} : ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  Text(
-                    "${overtime.type}",
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
+              // Row(
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.only(right: 8),
+              //       child: Text(
+              //         "${AppLocalizations.of(context)!.translate("type_ot")!} : ",
+              //         style: TextStyle(color: Colors.black),
+              //       ),
+              //     ),
+              //     Text(
+              //       "${overtime.type}",
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 5.0,
+              // ),
               Row(
                 children: [
                   Padding(
@@ -379,9 +383,13 @@ class _BodyState extends State<Body> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${overtime.duration}",
-                  ),
+                  overtime.duration == "hour"
+                      ? Text(
+                          "${overtime.duration} hour",
+                        )
+                      : Text(
+                          "${overtime.duration} day",
+                        ),
                 ],
               ),
               Row(

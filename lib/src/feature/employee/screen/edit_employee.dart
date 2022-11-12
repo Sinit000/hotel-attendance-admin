@@ -12,6 +12,7 @@ import 'package:hotle_attendnce_admin/src/feature/employee/bloc/employee_event.d
 import 'package:hotle_attendnce_admin/src/feature/employee/bloc/employee_state.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_detail_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/model/employee_model.dart';
+import 'package:hotle_attendnce_admin/src/feature/home/screen/app_bar.dart';
 import 'package:hotle_attendnce_admin/src/feature/role/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/role/model/role_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/position/bloc/index.dart';
@@ -31,6 +32,7 @@ import 'package:hotle_attendnce_admin/src/utils/share/helper.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../appLocalizations.dart';
 import 'employee_page.dart';
 
 class EditEmployee extends StatefulWidget {
@@ -64,6 +66,8 @@ class _EditEmployeeState extends State<EditEmployee> {
   final TextEditingController _workdayCtrl = TextEditingController();
   final TextEditingController _natoinCtrl = TextEditingController();
   final TextEditingController _cardCtrl = TextEditingController();
+  final TextEditingController _staffCtrl = TextEditingController();
+
   DepartmentBlc _departmentBlc = DepartmentBlc();
   PositionBlc _positionBloc = PositionBlc();
   TimetableBloc _timetableBloc = TimetableBloc();
@@ -75,7 +79,7 @@ class _EditEmployeeState extends State<EditEmployee> {
   DateTime dateNow = DateTime.now();
   String? dateToday;
   List<String> gender = ["Female", "Male", "Other"];
-  List<String> status = ["married", "single"];
+  List<String> status = ["married", "single", "divorced"];
   List<String> job = ["housewife", "not housewife"];
   List<String> country = [
     "Cambodian",
@@ -90,7 +94,7 @@ class _EditEmployeeState extends State<EditEmployee> {
     return showDatePicker(
       context: context,
       initialDate: dateNow,
-      firstDate: DateTime(DateTime.now().year - 5),
+      firstDate: DateTime(DateTime.now().year - 80),
       lastDate: DateTime(DateTime.now().year + 60),
     ).then((value) {
       if (value == null) {
@@ -112,10 +116,14 @@ class _EditEmployeeState extends State<EditEmployee> {
     widget.employeeModel.address == null
         ? _addressCtrl.text = ""
         : _addressCtrl.text = widget.employeeModel.address!;
-
-    _positionIdCtrl.text =
-        employeeBloc.employeeModel!.positionModel!.positionName;
-    _departmentIdCtrl.text = employeeBloc.employeeModel!.departmentModel!.name!;
+    _positionIdCtrl.text = widget.employeeModel.positionModel!.positionName;
+    _departmentIdCtrl.text = widget.employeeModel.departmentModel!.name!;
+    widget.employeeModel.no == null || widget.employeeModel.no == "null"
+        ? _staffCtrl.text = ""
+        : _staffCtrl.text = widget.employeeModel.no!;
+    // _positionIdCtrl.text =
+    //     employeeBloc.employeeModel!.positionModel!.positionName;
+    // _departmentIdCtrl.text = employeeBloc.employeeModel!.departmentModel!.name!;
     // _roleCtrl.text = employeeBloc..name;
     if (widget.employeeModel.gender == "F") {
       _genderCtrl.text = "Female";
@@ -156,6 +164,10 @@ class _EditEmployeeState extends State<EditEmployee> {
     _workdayCtrl.text =
         "from ${widget.employeeModel.workingDayModel!.workingDay} to ${widget.employeeModel.workingDayModel!.offDay}";
     _roleCtrl.text = widget.employeeModel.roleModel!.name;
+    if (widget.employeeModel.meritalStatus == "single") {
+      _coupleCtrl.text = "";
+      _numchildCtrl.text = "";
+    }
 
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy/MM/dd').format(now);
@@ -178,6 +190,8 @@ class _EditEmployeeState extends State<EditEmployee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: standardAppBar(context,
+          "${AppLocalizations.of(context)!.translate("edit_employee")!}"),
       body: Builder(builder: (context) {
         return BlocListener(
             bloc: employeeBloc,
@@ -317,6 +331,28 @@ class _EditEmployeeState extends State<EditEmployee> {
                                     horizontal: 15, vertical: 15),
                                 child: Column(
                                   children: [
+                                    TextFormField(
+                                      controller: _staffCtrl,
+                                      keyboardType: TextInputType.text,
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.grey.shade100,
+                                          filled: true,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: new BorderSide(
+                                                  color: Colors.grey.shade400)),
+                                          enabledBorder: InputBorder.none,
+                                          contentPadding: const EdgeInsets.only(
+                                            left: 14.0,
+                                          ),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("staff_id")!}"),
+                                      // validator: (value) {
+                                      //   if (value!.isEmpty) {
+                                      //     return 'Full name is required';
+                                      //   }
+                                      //   return null;
+                                      // },
+                                    ),
                                     SizedBox(height: 15),
                                     TextFormField(
                                       controller: _nameCtrl,
@@ -331,7 +367,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Enter full name"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("name")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Full name is required';
@@ -355,7 +392,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Choose gender"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_gender")!}"),
                                       onTap: () {
                                         customModal(context, gender, (value) {
                                           _genderCtrl.text = value;
@@ -383,7 +421,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Enter email address"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("email")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -402,7 +441,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Date of Birth"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("dob")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -426,7 +466,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Choose nationality"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_nationality")!}"),
                                       // validator: (value) {
                                       //   if (value!.isEmpty) {
                                       //     return 'nationality is required';
@@ -448,7 +489,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Card Number"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("cardNumber")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -465,7 +507,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Username"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("username")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Username is required';
@@ -510,7 +553,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Office Tel"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("office_tel")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -526,7 +570,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Phone number"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("phone")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -550,7 +595,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Choose position"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_position")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'position is required';
@@ -579,7 +625,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "select department name"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_department")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Department is required';
@@ -608,7 +655,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "select timetalbe name"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_timetable")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'timetable is required';
@@ -637,7 +685,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "select working name"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_workday")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'working is required';
@@ -665,7 +714,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Select role"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_role")!}"),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'role is required';
@@ -688,7 +738,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Enter address"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("address")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -712,7 +763,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Choose merital status"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_marital_status")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -736,7 +788,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                           contentPadding: const EdgeInsets.only(
                                             left: 14.0,
                                           ),
-                                          labelText: "Choose couple job"),
+                                          labelText:
+                                              "${AppLocalizations.of(context)!.translate("choose_spouse_job")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     TextFormField(
@@ -754,7 +807,7 @@ class _EditEmployeeState extends State<EditEmployee> {
                                             left: 14.0,
                                           ),
                                           labelText:
-                                              "Enter number of children"),
+                                              "${AppLocalizations.of(context)!.translate("minor_children")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     GestureDetector(
@@ -813,7 +866,7 @@ class _EditEmployeeState extends State<EditEmployee> {
                                                         // memCacheHeight: 250,
                                                         // memCacheWidth: 250,
                                                         imageUrl:
-                                                            "${widget.employeeModel.img!}",
+                                                            "https://banban-hr.com/hotel/public/${widget.employeeModel.img!}",
                                                         errorWidget:
                                                             (context, a, b) {
                                                           return FittedBox(
@@ -843,7 +896,8 @@ class _EditEmployeeState extends State<EditEmployee> {
                                                         Image.file(_image!)))),
                                     SizedBox(height: 30),
                                     standardBtn(
-                                        title: "Update",
+                                        title:
+                                            "${AppLocalizations.of(context)!.translate("update")!}",
                                         onTap: () {
                                           String depart = "";
                                           String position = "";
@@ -935,6 +989,7 @@ class _EditEmployeeState extends State<EditEmployee> {
 
                                             employeeBloc.add(
                                                 UpdateEmployeeStarted(
+                                                    no: _staffCtrl.text,
                                                     id: widget.employeeModel.id,
                                                     name: _nameCtrl.text,
                                                     gender: gender,

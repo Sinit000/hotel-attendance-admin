@@ -14,25 +14,7 @@ class HolidayBloc extends Bloc<HolidayEvent, HolidayState> {
   int page = 1;
   @override
   Stream<HolidayState> mapEventToState(HolidayEvent event) async* {
-    if (event is FetchHolidayStarted) {
-      yield FetchingHoliday();
-      try {
-        List<HolidayModel> _templist = await leaveRepository.getHoliday(
-            page: page, rowperpage: rowperpage);
-        holidaylist.addAll(_templist);
-
-        page++;
-
-        if (_templist.length < rowperpage) {
-          yield EndOfHolidayList();
-        } else {
-          yield FetchedHoliday();
-        }
-      } catch (e) {
-        log(e.toString());
-        yield ErrorFetchingHoliday(error: e.toString());
-      }
-    }
+    
     if (event is InitializeHolidayStarted) {
       yield InitializingHoliday();
       try {
@@ -52,26 +34,26 @@ class HolidayBloc extends Bloc<HolidayEvent, HolidayState> {
         yield ErrorFetchingHoliday(error: e.toString());
       }
     }
-    if (event is RefreshHolidayStarted) {
+    if (event is FetchHolidayStarted) {
       yield FetchingHoliday();
       try {
-        page = 1;
-        print(page);
-        // if (holidaylist.length != 0) {
-        //   holidaylist.clear();
-        // }
-        holidaylist.clear();
-        List<HolidayModel> leaveList =
-            await leaveRepository.getHoliday(page: 1, rowperpage: rowperpage);
-        holidaylist.addAll(leaveList);
+        List<HolidayModel> _templist = await leaveRepository.getHoliday(
+            page: page, rowperpage: rowperpage);
+        holidaylist.addAll(_templist);
+
         page++;
-        print(leaveList.length);
-        yield FetchedHoliday();
+
+        if (_templist.length < rowperpage) {
+          yield EndOfHolidayList();
+        } else {
+          yield FetchedHoliday();
+        }
       } catch (e) {
         log(e.toString());
         yield ErrorFetchingHoliday(error: e.toString());
       }
     }
+    
     if (event is AddHolidayStarted) {
       yield AddingHoliday();
       try {

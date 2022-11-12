@@ -78,7 +78,8 @@ class _BodyState extends State<Body> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             // print(_reportBloc.dateRange!);
@@ -135,7 +136,8 @@ class _BodyState extends State<Body> {
                 ),
                 _changeDayOffBloc.allDayoff.length == 0
                     ? Container(
-                        child: Text("No data"),
+                        child: Text(
+                            "${AppLocalizations.of(context)!.translate("no_data")!}"),
                       )
                     : Expanded(
                         child: SmartRefresher(
@@ -333,7 +335,9 @@ class _BodyState extends State<Body> {
             builder: (c) {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
-                controller.expanded ? "Click to Hide" : "Click to view",
+                controller.expanded
+                    ? "${AppLocalizations.of(context)!.translate("view")!}"
+                    : "${AppLocalizations.of(context)!.translate("hide")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },
@@ -371,7 +375,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Text(
-                    "${changeDayOffModel.duration}",
+                    "${changeDayOffModel.duration} day",
                   ),
                 ],
               ),
@@ -468,7 +472,7 @@ class _BodyState extends State<Body> {
                                   status: "approved"));
                             },
                             child: Text(
-                              "Aprove",
+                              "${AppLocalizations.of(context)!.translate("approve")!}",
                               style: TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.5,
@@ -496,7 +500,7 @@ class _BodyState extends State<Body> {
                                   status: "rejected"));
                             },
                             child: Text(
-                              "Reject",
+                              "${AppLocalizations.of(context)!.translate("reject")!}",
                               style: TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.5,

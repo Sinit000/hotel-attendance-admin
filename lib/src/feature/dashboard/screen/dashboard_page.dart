@@ -8,6 +8,8 @@ import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../appLocalizations.dart';
+
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({Key? key}) : super(key: key);
 
@@ -28,7 +30,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, "Dashboard"),
+      appBar: standardAppBar(
+          context, "${AppLocalizations.of(context)!.translate("dashboard")!}"),
       body: Container(
           child: BlocConsumer(
               bloc: _dashBoardBloc,
@@ -49,7 +52,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           backgroundColor: Colors.teal,
                           onSurface: Colors.grey,
                         ),
-                        child: Text("Retry")),
+                        child: Text(
+                            "${AppLocalizations.of(context)!.translate("retry")!}")),
                   );
                 }
                 return SmartRefresher(
@@ -77,31 +81,37 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           mainAxisSpacing: 10,
                           children: [
                             _buildItem(
-                                title: 'Total Employee',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("total_employee")!}',
                                 text:
                                     '${_dashBoardBloc.dashBoardModel!.totalUser}',
                                 color: Colors.purple[200]!),
                             _buildItem(
-                                title: 'On Time',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("on_time")!}',
                                 text:
                                     '${_dashBoardBloc.dashBoardModel!.checkin}',
                                 color: Colors.green[400]!),
                             _buildItem(
-                                title: 'Late',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("late")!}',
                                 text: '${_dashBoardBloc.dashBoardModel!.late}',
                                 color: Colors.amberAccent[200]!),
                             _buildItem(
-                                title: 'Overtime',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("overtime")!}',
                                 text:
                                     '${_dashBoardBloc.dashBoardModel!.overtime}',
                                 color: Colors.blue[400]!),
                             _buildItem(
-                                title: 'Absent',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("absent")!}',
                                 text:
                                     '${_dashBoardBloc.dashBoardModel!.absent}',
                                 color: Colors.red),
                             _buildItem(
-                                title: 'Leave',
+                                title:
+                                    '${AppLocalizations.of(context)!.translate("leave")!}',
                                 text: '${_dashBoardBloc.dashBoardModel!.leave}',
                                 color: Colors.red[400]!),
                           ],

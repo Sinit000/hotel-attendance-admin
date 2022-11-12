@@ -33,7 +33,7 @@ class _EditHolidayState extends State<EditHoliday> {
   @override
   void initState() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy/MM/dd').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     // String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
     dateToday = formattedDate.toString();
     widget.holidayModel.name == null
@@ -63,7 +63,7 @@ class _EditHolidayState extends State<EditHoliday> {
       } else {
         setState(() {
           date = value;
-          String formateDate = DateFormat('yyyy/MM/dd').format(date!);
+          String formateDate = DateFormat('yyyy-MM-dd').format(date!);
           controller.text = formateDate.toString();
         });
       }

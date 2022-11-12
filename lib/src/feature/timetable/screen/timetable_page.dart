@@ -226,7 +226,7 @@ class _DepartmentBodyState extends State<DepartmentBody> {
                   ),
                 ),
                 Text(
-                  "${timetableModel.lateMn}",
+                  "${timetableModel.lateMn} mn",
                   style: TextStyle(
                     color: Colors.lightBlue,
                   ),
@@ -248,7 +248,7 @@ class _DepartmentBodyState extends State<DepartmentBody> {
                   ),
                 ),
                 Text(
-                  "${timetableModel.earlyMn}",
+                  "${timetableModel.earlyMn} mn",
                   style: TextStyle(
                     color: Colors.lightBlue,
                   ),

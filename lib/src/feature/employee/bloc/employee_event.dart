@@ -30,6 +30,7 @@ class AddEmployeeStarted extends EmployeeEvent {
   final String email;
   final String officeTel;
   final File? img;
+  final String no;
   final String username;
 
   final String password;
@@ -67,6 +68,7 @@ class AddEmployeeStarted extends EmployeeEvent {
       required this.roleId,
       required this.timetalbeId,
       required this.workdayId,
+      required this.no,
       required this.child});
 }
 
@@ -80,7 +82,7 @@ class UpdateEmployeeStarted extends EmployeeEvent {
   final File? img;
   final String positionId;
   final String departmentId;
-  // final String roleId;
+  final String no;
   final String phoneNumber;
   final String address;
   final String imgUrl;
@@ -115,6 +117,7 @@ class UpdateEmployeeStarted extends EmployeeEvent {
       required this.roleId,
       required this.timetalbeId,
       required this.workdayId,
+      required this.no,
       required this.address});
 }
 

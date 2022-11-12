@@ -66,242 +66,218 @@ class _AddDepartmentState extends State<AddDepartment> {
               }
             },
             child: BlocListener(
-              bloc: _workingDayBloc,
-              listener: (context, state) {
-                if (state is FetchingWorkingDay) {
-                  EasyLoading.show(status: "loading....");
-                }
-                if (state is ErrorFetchingWorkingDay) {
-                  EasyLoading.dismiss();
-                  errorSnackBar(text: state.toString(), context: context);
-                }
-                if (state is FetchedWorkingDay) {
-                  EasyLoading.dismiss();
-
-                  customModal(
-                      context,
-                      _workingDayBloc.departmentList
-                          .map((e) =>
-                              "${e.name}  Workday ${e.workingDay} Offday ${e.offDay}")
-                          .toList(), (value) {
-                    _groupIdCtrl.text = value;
-                  });
-                }
-              },
-              child: BlocListener(
-                  bloc: _locationBloc,
+                bloc: _locationBloc,
+                listener: (context, state) {
+                  if (state is FetchingLocation) {
+                    EasyLoading.show(status: "loading....");
+                  }
+                  if (state is ErrorFetchingLocation) {
+                    EasyLoading.dismiss();
+                    errorSnackBar(text: state.toString(), context: context);
+                  }
+                  if (state is FetchedLocation) {
+                    EasyLoading.dismiss();
+                    customModal(
+                        context,
+                        _locationBloc.departmentList
+                            .map((e) => e.name!)
+                            .toList(), (value) {
+                      _locationCtrl.text = value;
+                    });
+                  }
+                },
+                child: BlocListener(
+                  bloc: _employeeBloc,
                   listener: (context, state) {
-                    if (state is FetchingLocation) {
+                    if (state is FetchingEmployee) {
                       EasyLoading.show(status: "loading....");
                     }
-                    if (state is ErrorFetchingLocation) {
+                    if (state is ErrorFetchingEmployee) {
                       EasyLoading.dismiss();
                       errorSnackBar(text: state.toString(), context: context);
                     }
-                    if (state is FetchedLocation) {
+                    if (state is FetchedEmployee) {
                       EasyLoading.dismiss();
-                      customModal(
-                          context,
-                          _locationBloc.departmentList
-                              .map((e) => e.name!)
-                              .toList(), (value) {
-                        _locationCtrl.text = value;
+                      customModal(context,
+                          _employeeBloc.emploList.map((e) => e.name).toList(),
+                          (value) {
+                        _managerCtrl.text = value;
                       });
                     }
                   },
-                  child: BlocListener(
-                    bloc: _employeeBloc,
-                    listener: (context, state) {
-                      if (state is FetchingEmployee) {
-                        EasyLoading.show(status: "loading....");
-                      }
-                      if (state is ErrorFetchingEmployee) {
-                        EasyLoading.dismiss();
-                        errorSnackBar(text: state.toString(), context: context);
-                      }
-                      if (state is FetchedEmployee) {
-                        EasyLoading.dismiss();
-                        customModal(context,
-                            _employeeBloc.emploList.map((e) => e.name).toList(),
-                            (value) {
-                          _managerCtrl.text = value;
-                        });
-                      }
-                    },
-                    child: ListView(
-                      children: [
-                        Form(
-                          key: _formKey,
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 15),
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15),
-                                TextFormField(
-                                  controller: _reasonCtrl,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(
-                                        left: 14.0,
-                                      ),
-                                      fillColor: Colors.grey.shade100,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: new BorderSide(
-                                              color: Colors.grey.shade400)),
-                                      labelText:
-                                          "${AppLocalizations.of(context)!.translate("name")!}"),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Name is required';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(height: 15),
-                                // TextFormField(
-                                //   controller: _groupIdCtrl,
-                                //   onTap: () {
-                                //     _workingDayBloc
-                                //         .add(FetchAllWorkingdayStarted());
-                                //   },
-                                //   readOnly: true,
-                                //   // keyboardType: TextInputType.text,
-                                //   decoration: InputDecoration(
-                                //       suffixIcon: Icon(Icons.arrow_drop_down),
-                                //       contentPadding: const EdgeInsets.only(
-                                //         left: 14.0,
-                                //       ),
-                                //       fillColor: Colors.grey.shade100,
-                                //       filled: true,
-                                //       focusedBorder: OutlineInputBorder(
-                                //           borderSide: new BorderSide(
-                                //               color: Colors.grey.shade400)),
-                                //       labelText:
-                                //           "${AppLocalizations.of(context)!.translate("choose_workday")!}"),
-                                //   validator: (value) {
-                                //     if (value!.isEmpty) {
-                                //       return 'workday is required.';
-                                //     }
-                                //     return null;
-                                //   },
-                                // ),
-                                // SizedBox(height: 15),
-                                TextFormField(
-                                  controller: _locationCtrl,
+                  child: ListView(
+                    children: [
+                      Form(
+                        key: _formKey,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 15),
+                              TextFormField(
+                                controller: _reasonCtrl,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 14.0,
+                                    ),
+                                    fillColor: Colors.grey.shade100,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: new BorderSide(
+                                            color: Colors.grey.shade400)),
+                                    labelText:
+                                        "${AppLocalizations.of(context)!.translate("name")!}"),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Name is required';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 15),
+                              // TextFormField(
+                              //   controller: _groupIdCtrl,
+                              //   onTap: () {
+                              //     _workingDayBloc
+                              //         .add(FetchAllWorkingdayStarted());
+                              //   },
+                              //   readOnly: true,
+                              //   // keyboardType: TextInputType.text,
+                              //   decoration: InputDecoration(
+                              //       suffixIcon: Icon(Icons.arrow_drop_down),
+                              //       contentPadding: const EdgeInsets.only(
+                              //         left: 14.0,
+                              //       ),
+                              //       fillColor: Colors.grey.shade100,
+                              //       filled: true,
+                              //       focusedBorder: OutlineInputBorder(
+                              //           borderSide: new BorderSide(
+                              //               color: Colors.grey.shade400)),
+                              //       labelText:
+                              //           "${AppLocalizations.of(context)!.translate("choose_workday")!}"),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'workday is required.';
+                              //     }
+                              //     return null;
+                              //   },
+                              // ),
+                              // SizedBox(height: 15),
+                              TextFormField(
+                                controller: _locationCtrl,
+                                onTap: () {
+                                  _locationBloc
+                                      .add(FetchAllLocationStarted());
+                                },
+                                readOnly: true,
+                                // keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    suffixIcon: Icon(Icons.arrow_drop_down),
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 14.0,
+                                    ),
+                                    fillColor: Colors.grey.shade100,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: new BorderSide(
+                                            color: Colors.grey.shade400)),
+                                    labelText:
+                                        "${AppLocalizations.of(context)!.translate("choose_location")!}"),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'location is required.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 15),
+                              TextFormField(
+                                controller: _managerCtrl,
+                                onTap: () {
+                                  _employeeBloc
+                                      .add(FetchAllEmployeeStarted());
+                                },
+                                readOnly: true,
+                                // keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    suffixIcon: Icon(Icons.arrow_drop_down),
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 14.0,
+                                    ),
+                                    fillColor: Colors.grey.shade100,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: new BorderSide(
+                                            color: Colors.grey.shade400)),
+                                    labelText:
+                                        "${AppLocalizations.of(context)!.translate("choose_manager")!}"),
+                              ),
+                              SizedBox(height: 15),
+                              TextFormField(
+                                controller: _noteCtrl,
+                                keyboardType: TextInputType.text,
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 14.0,
+                                    ),
+                                    fillColor: Colors.grey.shade100,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: new BorderSide(
+                                            color: Colors.grey.shade400)),
+                                    labelText:
+                                        "${AppLocalizations.of(context)!.translate("notes")!}"),
+                              ),
+                              // SizedBox(height: 15),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 4),
+                              standardBtn(
+                                  title:
+                                      "${AppLocalizations.of(context)!.translate("submit")!}",
                                   onTap: () {
-                                    _locationBloc
-                                        .add(FetchAllLocationStarted());
-                                  },
-                                  readOnly: true,
-                                  // keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.arrow_drop_down),
-                                      contentPadding: const EdgeInsets.only(
-                                        left: 14.0,
-                                      ),
-                                      fillColor: Colors.grey.shade100,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: new BorderSide(
-                                              color: Colors.grey.shade400)),
-                                      labelText:
-                                          "${AppLocalizations.of(context)!.translate("choose_location")!}"),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'location is required.';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(height: 15),
-                                TextFormField(
-                                  controller: _managerCtrl,
-                                  onTap: () {
-                                    _employeeBloc
-                                        .add(FetchAllEmployeeStarted());
-                                  },
-                                  readOnly: true,
-                                  // keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.arrow_drop_down),
-                                      contentPadding: const EdgeInsets.only(
-                                        left: 14.0,
-                                      ),
-                                      fillColor: Colors.grey.shade100,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: new BorderSide(
-                                              color: Colors.grey.shade400)),
-                                      labelText:
-                                          "${AppLocalizations.of(context)!.translate("choose_manager")!}"),
-                                ),
-                                SizedBox(height: 15),
-                                TextFormField(
-                                  controller: _noteCtrl,
-                                  keyboardType: TextInputType.text,
-                                  maxLines: null,
-                                  decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(
-                                        left: 14.0,
-                                      ),
-                                      fillColor: Colors.grey.shade100,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: new BorderSide(
-                                              color: Colors.grey.shade400)),
-                                      labelText:
-                                          "${AppLocalizations.of(context)!.translate("notes")!}"),
-                                ),
-                                // SizedBox(height: 15),
-                                SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 4),
-                                standardBtn(
-                                    title:
-                                        "${AppLocalizations.of(context)!.translate("submit")!}",
-                                    onTap: () {
-                                      if (_formKey!.currentState!.validate()) {
-                                        String managerId = "";
-                                        if (_managerCtrl.text == "") {
-                                          _managerCtrl.text = "";
-                                        } else {
-                                          EmployeeModel userModel =
-                                              _employeeBloc.emploList
-                                                  .firstWhere((element) =>
-                                                      element.name ==
-                                                      _managerCtrl.text);
-                                          managerId = userModel.id;
-                                        }
-                                        LocationModel locationModel =
-                                            _locationBloc.departmentList
+                                    if (_formKey!.currentState!.validate()) {
+                                      String managerId = "";
+                                      if (_managerCtrl.text == "") {
+                                        _managerCtrl.text = "";
+                                      } else {
+                                        EmployeeModel userModel =
+                                            _employeeBloc.emploList
                                                 .firstWhere((element) =>
                                                     element.name ==
-                                                    _locationCtrl.text);
-
-                                        // WorkingDayModel workingDayModel =
-                                        //     _workingDayBloc.departmentList
-                                        //         .firstWhere((e) =>
-                                        //             "${e.name}  Workday ${e.workingDay} Offday ${e.offDay}" ==
-                                        //             _groupIdCtrl.text);
-                                        // print("manger id $managerId");
-                                        departmentBlc.add(AddDepartmentStarted(
-                                            managerId: managerId,
-                                            name: _reasonCtrl.text,
-                                            locationId: locationModel.id,
-                                            // workId: workingDayModel.id,
-                                            notes: _noteCtrl.text));
+                                                    _managerCtrl.text);
+                                        managerId = userModel.id;
                                       }
-                                    })
-                              ],
-                            ),
+                                      LocationModel locationModel =
+                                          _locationBloc.departmentList
+                                              .firstWhere((element) =>
+                                                  element.name ==
+                                                  _locationCtrl.text);
+
+                                      // WorkingDayModel workingDayModel =
+                                      //     _workingDayBloc.departmentList
+                                      //         .firstWhere((e) =>
+                                      //             "${e.name}  Workday ${e.workingDay} Offday ${e.offDay}" ==
+                                      //             _groupIdCtrl.text);
+                                      // print("manger id $managerId");
+                                      departmentBlc.add(AddDepartmentStarted(
+                                          managerId: managerId,
+                                          name: _reasonCtrl.text,
+                                          locationId: locationModel.id,
+                                          // workId: workingDayModel.id,
+                                          notes: _noteCtrl.text));
+                                    }
+                                  })
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  )),
-            ));
+                        ),
+                      )
+                    ],
+                  ),
+                )));
       }),
     );
   }

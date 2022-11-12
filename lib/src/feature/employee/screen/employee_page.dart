@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/bloc/index.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/screen/edit_employee.dart';
+import 'package:hotle_attendnce_admin/src/feature/employee/screen/employee_detail.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/screen/employee_detail_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/employee/screen/reset_password.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/delete_dialog.dart';
@@ -13,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotle_attendnce_admin/src/utils/share/helper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../../../appLocalizations.dart';
 
 EmployeeBloc employeeBloc = EmployeeBloc();
 
@@ -43,7 +46,7 @@ class _EmployeePageState extends State<EmployeePage> {
         ),
         // centerTitle: true,
         title: Text(
-          "Employee page",
+          "${AppLocalizations.of(context)!.translate("employee")!}",
           style:
               TextStyle(color: Colors.white, fontFamily: 'BattambangRegular'),
           textScaleFactor: 1.1,
@@ -133,12 +136,12 @@ class _BodyState extends State<Body> {
                   backgroundColor: Colors.teal,
                   onSurface: Colors.grey,
                 ),
-                child: Text("Retry")),
+                child: Text("${AppLocalizations.of(context)!.translate("retry")!}")),
           );
         } else {
           if (employeeBloc.emploList.length == 0) {
             return Center(
-              child: Text("No Data"),
+              child: Text("${AppLocalizations.of(context)!.translate("no_data")!}"),
             );
           }
           return SmartRefresher(
@@ -167,8 +170,8 @@ class _BodyState extends State<Body> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => EmployeeDetailPage(
-                                      id: employeeBloc.emploList[index].id)));
+                                  builder: (context) => Employeedetail(
+                                      employeeModel: employeeBloc.emploList[index])));
                         },
                         child: Row(
                           children: [

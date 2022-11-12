@@ -361,9 +361,12 @@ class _EmployeeReportState extends State<EmployeeReport> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  Text(
-                    "${leavemodel.baseSalary}",
-                  ),
+                  leavemodel.baseSalary == null ||
+                          leavemodel.baseSalary == "null"
+                      ? Text("0")
+                      : Text(
+                          "\$ ${leavemodel.baseSalary}",
+                        ),
                 ],
               ),
               SizedBox(

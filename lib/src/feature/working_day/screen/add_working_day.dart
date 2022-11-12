@@ -30,7 +30,7 @@ class _AddWorkingDayState extends State<AddWorkingDay> {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.2),
       appBar: standardAppBar(
-          context, "${AppLocalizations.of(context)!.translate("workday")!}"),
+          context, "${AppLocalizations.of(context)!.translate("add_workday")!}"),
       body: Builder(builder: (context) {
         return BlocListener(
           bloc: workingDayBloc,
