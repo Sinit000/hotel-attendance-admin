@@ -16,15 +16,17 @@ class LeaveTypeBloc extends Bloc<LeaveTypeEvent, LeaveTypeState> {
     if (event is InitializeLeaveTypeStarted) {
       yield InitializingLeaveType();
       try {
-        // Future.delayed(Duration(milliseconds: 200));
+        page = 1;
+        leavetype.clear();
         List<LeaveTypeModel> _departmentList = await departmentRepository
             .getleaveType(rowPerpage: rowperpage, page: page);
         leavetype.addAll(_departmentList);
         page++;
-        print(leavetype.length);
+        if (event.isRefresh == true) {
+          yield FetchedLeaveType();
+        }
         yield InitializedLeaveType();
       } catch (e) {
-        log(e.toString());
         yield ErrorFetchingLeaveType(error: e.toString());
       }
     }
@@ -48,8 +50,7 @@ class LeaveTypeBloc extends Bloc<LeaveTypeEvent, LeaveTypeState> {
             .getleaveType(rowPerpage: rowperpage, page: page);
         leavetype.addAll(_departmentList);
         page++;
-        print(page);
-        print(_departmentList.length);
+
         if (_departmentList.length < rowperpage) {
           yield EndOfLeaveTypeList();
         } else {
@@ -60,34 +61,37 @@ class LeaveTypeBloc extends Bloc<LeaveTypeEvent, LeaveTypeState> {
         yield ErrorFetchingLeaveType(error: e.toString());
       }
     }
-    if (event is RefreshLeaveTypeStarted) {
-      yield FetchingLeaveType();
-      try {
-        page = 1;
-        if (leavetype.length != 0) {
-          leavetype.clear();
-        }
-        List<LeaveTypeModel> leaveList = await departmentRepository
-            .getleaveType(rowPerpage: rowperpage, page: page);
-        leavetype.addAll(leaveList);
-        page++;
-        print(leaveList.length);
-        yield FetchedLeaveType();
-      } catch (e) {
-        log(e.toString());
-        yield ErrorFetchingLeaveType(error: e.toString());
-      }
-    }
+    // if (event is RefreshLeaveTypeStarted) {
+    //   yield FetchingLeaveType();
+    //   try {
+    //     page = 1;
+    //     if (leavetype.length != 0) {
+    //       leavetype.clear();
+    //     }
+    //     List<LeaveTypeModel> leaveList = await departmentRepository
+    //         .getleaveType(rowPerpage: rowperpage, page: page);
+    //     leavetype.addAll(leaveList);
+    //     page++;
+    //     print(leaveList.length);
+    //     yield FetchedLeaveType();
+    //   } catch (e) {
+    //     log(e.toString());
+    //     yield ErrorFetchingLeaveType(error: e.toString());
+    //   }
+    // }
     if (event is AddLeaveTypeStarted) {
       yield AddingLeaveType();
       try {
         await departmentRepository.addLeaveType(
-            name: event.name, note: event.note);
+            duration: event.duration,
+            parentId: event.parentId,
+            name: event.name,
+            note: event.note);
         yield AddedLeaveType();
         yield FetchingLeaveType();
         print(leavetype.length);
         leavetype.clear();
-        page=1;
+        page = 1;
         List<LeaveTypeModel> leaveList = await departmentRepository
             .getleaveType(rowPerpage: rowperpage, page: page);
         leavetype.addAll(leaveList);
@@ -102,12 +106,16 @@ class LeaveTypeBloc extends Bloc<LeaveTypeEvent, LeaveTypeState> {
       yield AddingLeaveType();
       try {
         await departmentRepository.editLeaveType(
-            id: event.id, name: event.name, note: event.note);
+            duration: event.duration,
+            parentId: event.parentId,
+            id: event.id,
+            name: event.name,
+            note: event.note);
         yield AddedLeaveType();
         yield FetchingLeaveType();
         print(leavetype.length);
         leavetype.clear();
-        page=1;
+        page = 1;
         List<LeaveTypeModel> leaveList = await departmentRepository
             .getleaveType(rowPerpage: rowperpage, page: page);
         leavetype.addAll(leaveList);
@@ -126,7 +134,7 @@ class LeaveTypeBloc extends Bloc<LeaveTypeEvent, LeaveTypeState> {
         yield FetchingLeaveType();
         print(leavetype.length);
         leavetype.clear();
-         page=1;
+        page = 1;
         List<LeaveTypeModel> leaveList = await departmentRepository
             .getleaveType(rowPerpage: rowperpage, page: page);
         leavetype.addAll(leaveList);

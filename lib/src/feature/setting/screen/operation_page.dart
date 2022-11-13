@@ -4,6 +4,7 @@ import 'package:hotle_attendnce_admin/src/appLocalizations.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
 
 import 'package:hotle_attendnce_admin/src/feature/language/sreen/language.dart';
+import 'package:hotle_attendnce_admin/src/feature/levetype/screen/leavetype.dart';
 import 'package:hotle_attendnce_admin/src/feature/setting/screen/widget/dialogExport.dart';
 import 'package:hotle_attendnce_admin/src/feature/setting/screen/widget/setting_item.dart';
 
@@ -86,14 +87,16 @@ class _OperationPageState extends State<OperationPage> {
           Navigator.pushNamed(context, holiday);
         }
       },
-      // {
-      //   "name": "Language",
-      //   "iconColor": Colors.orange,
-      //   "image": "assets/icon/language.png",
-      //   "onPressed": () {
-      //     languageModal(context);
-      //   }
-      // },
+      {
+        "name": "${AppLocalizations.of(context)!.translate("leave_type")!}",
+        "iconColor": Colors.lightBlue[300],
+        "image": "assets/icon/types.png",
+        "onPressed": () {
+          Navigator.pushNamed(context, leavetype);
+          // Navigator.push(
+          // context, MaterialPageRoute(builder: (context) => Leavetype()));
+        }
+      },
       {
         "name": "${AppLocalizations.of(context)!.translate("reset_password")!}",
         "iconColor": Colors.lightGreen,

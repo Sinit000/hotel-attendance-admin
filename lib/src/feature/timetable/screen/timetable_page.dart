@@ -78,7 +78,17 @@ class _DepartmentBodyState extends State<DepartmentBody> {
             );
           } else if (state is ErrorFetchingTimetable) {
             return Center(
-              child: Text(state.error.toString()),
+              child: TextButton(
+                  onPressed: () {
+                    timetableBloc.add(RefreshTimetableStarted());
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             if (timetableBloc.timetableList.length == 0) {

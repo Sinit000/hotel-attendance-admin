@@ -89,7 +89,17 @@ class _PositionBodyState extends State<PositionBody> {
           );
         } else if (state is ErrorFetchingPosition) {
           return Center(
-            child: Text(state.error.toString()),
+            child: TextButton(
+                onPressed: () {
+                  positionBlc.add(RefreshPositionStarted());
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.teal,
+                  onSurface: Colors.grey,
+                ),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("retry")!}")),
           );
         } else {
           if (positionBlc.positionList.length == 0) {

@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hotle_attendnce_admin/src/config/routes/routes.dart';
-import 'package:hotle_attendnce_admin/src/feature/location/bloc/index.dart';
-import 'package:hotle_attendnce_admin/src/feature/location/bloc/location_bloc.dart';
-import 'package:hotle_attendnce_admin/src/feature/location/models/location_model.dart';
-import 'package:hotle_attendnce_admin/src/feature/location/screens/generate_qr.dart';
+import 'package:hotle_attendnce_admin/src/feature/levetype/bloc/index.dart';
+import 'package:hotle_attendnce_admin/src/feature/levetype/model/leave_type_model.dart';
+import 'package:hotle_attendnce_admin/src/feature/levetype/screen/edit_leave_type.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/delete_dialog.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/error_snackbar.dart';
 import 'package:hotle_attendnce_admin/src/shared/widget/standard_appbar.dart';
@@ -15,14 +14,21 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../appLocalizations.dart';
 
-LocationBloc locationBloc = LocationBloc();
+LeaveTypeBloc typeBloc = LeaveTypeBloc();
 
-class LocationPage extends StatelessWidget {
+class Leavetype extends StatefulWidget {
+  const Leavetype({Key? key}) : super(key: key);
+
+  @override
+  State<Leavetype> createState() => _LeavetypeState();
+}
+
+class _LeavetypeState extends State<Leavetype> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: standardAppBar(
-          context, "${AppLocalizations.of(context)!.translate("location")!}"),
+          context, "${AppLocalizations.of(context)!.translate("workday")!}"),
       body: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10), child: Body()),
       floatingActionButton: Container(
@@ -31,7 +37,7 @@ class LocationPage extends StatelessWidget {
             child: Icon(Icons.add),
             elevation: 0,
             onPressed: () {
-              Navigator.pushNamed(context, addLocation);
+              Navigator.pushNamed(context, addLeavetype);
             }),
       ),
     );
@@ -50,24 +56,24 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
 
-    locationBloc.add(InitializeLocationStarted());
+    typeBloc.add(InitializeLeaveTypeStarted(isRefresh: false));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer(
-        bloc: locationBloc,
+        bloc: typeBloc,
         builder: (context, state) {
-          if (state is InitializingLocation) {
+          if (state is InitializingLeaveType) {
             return Center(
               child: Lottie.asset('assets/animation/loader.json',
                   width: 200, height: 200),
             );
-          } else if (state is ErrorFetchingLocation) {
+          } else if (state is ErrorFetchingLeaveType) {
             return Center(
               child: TextButton(
                   onPressed: () {
-                    locationBloc.add(RefreshLocationStarted());
+                    typeBloc.add(InitializeLeaveTypeStarted(isRefresh: false));
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.white,
@@ -78,66 +84,52 @@ class _BodyState extends State<Body> {
                       "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
-            if (locationBloc.departmentList.length == 0) {
+            if (typeBloc.leavetype.length == 0) {
               return Center(
                 child: Text(
                     "${AppLocalizations.of(context)!.translate("no_data")!}"),
               );
             }
-            print("length ${locationBloc.departmentList.length}");
-
             return SmartRefresher(
               onRefresh: () {
-                locationBloc.add(RefreshLocationStarted());
+                typeBloc.add(InitializeLeaveTypeStarted(isRefresh: true));
               },
               onLoading: () {
-                locationBloc.add(FetchLocationStarted());
-                _refreshController.loadComplete();
+                typeBloc.add(FetchLeaveTypeStarted());
               },
               enablePullDown: true,
               enablePullUp: true,
               cacheExtent: 1,
               controller: _refreshController,
               child: ListView.builder(
-                  itemCount: locationBloc.departmentList.length,
+                  itemCount: typeBloc.leavetype.length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GenerateQr(
-                                    id: locationBloc
-                                        .departmentList[index].id)));
-                      },
-                      child: _buildListItem(locationBloc.departmentList[index]),
-                    );
+                    return _buildListItem(typeBloc.leavetype[index]);
                   }),
             );
           }
         },
         listener: (context, state) {
-          if (state is FetchedLocation) {
+          if (state is FetchedLeaveType) {
             _refreshController.loadComplete();
             _refreshController.refreshCompleted();
           }
-          if (state is EndOfLocationList) {
+          if (state is EndOfLeaveTypeList) {
             _refreshController.loadNoData();
           }
-          if (state is AddingLocation) {
+          if (state is AddingLeaveType) {
             EasyLoading.show(status: "loading....");
-          } else if (state is ErrorAddingLocation) {
+          } else if (state is ErrorAddingLeaveType) {
             EasyLoading.dismiss();
             errorSnackBar(text: state.error.toString(), context: context);
-          } else if (state is AddedLocation) {
+          } else if (state is AddedLeaveType) {
             EasyLoading.dismiss();
             EasyLoading.showSuccess("Sucess");
-            Navigator.pop(context);
           }
         });
   }
 
-  _buildListItem(LocationModel location) {
+  _buildListItem(LeaveTypeModel workingDayModel) {
     return Container(
       margin: EdgeInsets.only(bottom: 10.0, left: 8.0, right: 8.0),
       decoration: BoxDecoration(
@@ -159,6 +151,8 @@ class _BodyState extends State<Body> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              // mainAxisAlignment:
+              //     MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
@@ -168,16 +162,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Text(
-                  "${location.name}",
+                  "${workingDayModel.name}",
                   style: TextStyle(
                     color: Colors.green,
                   ),
                 )
               ],
             ),
-            SizedBox(
-              height: 5.0,
-            ),
             Row(
               // mainAxisAlignment:
               //     MainAxisAlignment.spaceBetween,
@@ -185,42 +176,17 @@ class _BodyState extends State<Body> {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    "${AppLocalizations.of(context)!.translate("lat")!} :",
+                    "${AppLocalizations.of(context)!.translate("duration")!} :",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
                 Text(
-                  "${location.lat}",
+                  "${workingDayModel.scope}",
                   style: TextStyle(
-                    color: Colors.purple,
+                    color: Colors.red,
                   ),
                 )
               ],
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Row(
-              // mainAxisAlignment:
-              //     MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Text(
-                    "${AppLocalizations.of(context)!.translate("lon")!}:",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Text(
-                  "${location.long}",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5.0,
             ),
             Row(
               // mainAxisAlignment:
@@ -233,10 +199,10 @@ class _BodyState extends State<Body> {
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                location.notes == null
+                workingDayModel.note == null
                     ? Text("")
                     : Text(
-                        "${location.notes}",
+                        "${workingDayModel.note}",
                         style: TextStyle(
                           color: Colors.black,
                         ),
@@ -255,8 +221,12 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, editLocation,
-                          arguments: location);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (con) => EditLeaveType(
+                                    leaveTypeModel: workingDayModel,
+                                  )));
                     }),
                 SizedBox(
                   width: 5,
@@ -274,9 +244,9 @@ class _BodyState extends State<Body> {
                           context: context,
                           onPress: () {
                             Navigator.pop(context);
-                            print("id ${location.id}");
-                            locationBloc
-                                .add(DeletLocationStarted(id: location.id));
+
+                            typeBloc.add(
+                                DeleteLeaveTypeStarted(id: workingDayModel.id));
                           });
                     }),
               ],

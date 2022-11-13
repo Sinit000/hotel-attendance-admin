@@ -32,6 +32,7 @@ import 'package:hotle_attendnce_admin/src/feature/holiday/screen/holiday_page.da
 import 'package:hotle_attendnce_admin/src/feature/leaveout/screen/leaveout_page.dart';
 import 'package:hotle_attendnce_admin/src/feature/levetype/screen/add_leave_type.dart';
 import 'package:hotle_attendnce_admin/src/feature/levetype/screen/leave_type_page.dart';
+import 'package:hotle_attendnce_admin/src/feature/levetype/screen/leavetype.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/models/location_model.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/screens/add_location.dart';
 import 'package:hotle_attendnce_admin/src/feature/location/screens/edit_location.dart';
@@ -103,7 +104,7 @@ class RouteGenerator {
       case leave:
         return MaterialPageRoute(builder: (_) => LeavePage());
       case leavetype:
-        return MaterialPageRoute(builder: (_) => LeaveTypePage());
+        return MaterialPageRoute(builder: (_) => Leavetype());
 
       case holiday:
         return MaterialPageRoute(builder: (_) => HolidayPage());

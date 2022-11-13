@@ -288,8 +288,8 @@ class _AllAttendanceReportState extends State<AllAttendanceReport> {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
                 controller.expanded
-                    ? "${AppLocalizations.of(context)!.translate("view")!}"
-                    : "${AppLocalizations.of(context)!.translate("hide")!}",
+                    ? "${AppLocalizations.of(context)!.translate("hide")!}"
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

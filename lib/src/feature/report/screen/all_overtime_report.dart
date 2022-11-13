@@ -65,7 +65,7 @@ class _AllOvertimeReportState extends State<AllOvertimeReport> {
                         backgroundColor: Colors.teal,
                         onSurface: Colors.grey,
                       ),
-                      child: Text("Retry")),
+                      child: Text("${AppLocalizations.of(context)!.translate("retry")!}")),
                 );
               } else {
                 return Column(
@@ -126,7 +126,7 @@ class _AllOvertimeReportState extends State<AllOvertimeReport> {
                     ),
                     _employeeBloc.reportovertime.length == 0
                         ? Container(
-                            child: Text("No data"),
+                            child: Text("${AppLocalizations.of(context)!.translate("no_data")!}"),
                           )
                         : Expanded(
                             child: SmartRefresher(
@@ -294,8 +294,8 @@ class _AllOvertimeReportState extends State<AllOvertimeReport> {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
                 controller.expanded
-                    ? "${AppLocalizations.of(context)!.translate("view")!}"
-                    : "${AppLocalizations.of(context)!.translate("hide")!}",
+                    ? "${AppLocalizations.of(context)!.translate("hide")!}"
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

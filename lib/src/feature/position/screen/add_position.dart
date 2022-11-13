@@ -93,7 +93,7 @@ class _AddPositionState extends State<AddPosition> {
                                     color: Colors.grey.shade400)),
                             enabledBorder: InputBorder.none,
                             labelText:
-                                "${AppLocalizations.of(context)!.translate("type")!} "),
+                                "${AppLocalizations.of(context)!.translate("position_type")!} "),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'type is required';
@@ -112,7 +112,6 @@ class _AddPositionState extends State<AddPosition> {
                                   type: _typeCtrl.text));
                             }
                           })
-                     
                     ],
                   ),
                 ),

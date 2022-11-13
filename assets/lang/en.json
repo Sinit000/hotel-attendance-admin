@@ -219,7 +219,12 @@
     "alert_delete" : "Do want to delete this record?",
     "enter_leave_deduction" : "Enter Deduction",
     "cancel" : "Cancel",
-    "retry" : "Retry"
+    "retry" : "Retry",
+    "add_leave_type":"Add Leavetype",
+    "edit_leave_type":"Edit Leavetye",
+    "parent_id":"Parent",
+    "position_type":"Type"
+    
     
   
 

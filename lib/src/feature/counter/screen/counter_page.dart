@@ -56,18 +56,20 @@ class _BodyState extends State<Body> {
             );
           }
           if (state is ErrorFetchingCounter) {
-            return Center(
+             return Center(
               child: TextButton(
                   onPressed: () {
-                    counterBloc.add(InitilizeCounterStarted(isRefresh: true));
+                   counterBloc.add(InitilizeCounterStarted(isRefresh: true));
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("Retry")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
+           
           } else {
             // print(_reportBloc.dateRange!);
             return Column(
@@ -222,7 +224,7 @@ class _BodyState extends State<Body> {
               return Text(
                 controller.expanded
                     ? "${AppLocalizations.of(context)!.translate("hide")!}"
-                    : "${AppLocalizations.of(context)!.translate("show")!}",
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

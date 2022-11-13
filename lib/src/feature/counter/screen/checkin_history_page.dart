@@ -65,7 +65,8 @@ class _BodyState extends State<Body> {
                     backgroundColor: Colors.teal,
                     onSurface: Colors.grey,
                   ),
-                  child: Text("${AppLocalizations.of(context)!.translate("retry")!}")),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             // print(_reportBloc.dateRange!);
@@ -221,7 +222,7 @@ class _BodyState extends State<Body> {
               return Text(
                 controller.expanded
                     ? "${AppLocalizations.of(context)!.translate("hide")!}"
-                    : "${AppLocalizations.of(context)!.translate("show")!}",
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

@@ -53,12 +53,16 @@ class LeaveTypeRepository {
   Future<void> addLeaveType({
     required String name,
     required String note,
+    required String duration,
+    required String parentId,
   }) async {
     try {
       String url = mainUrl + "leavetypes/add";
       Map body = {
         "leave_type": name,
         "notes": note,
+        "duration": duration,
+        "parent_id": parentId
       };
       Response response = await apiProvider.post(url, body, null);
 
@@ -79,12 +83,16 @@ class LeaveTypeRepository {
     required String id,
     required String name,
     required String note,
+    required String duration,
+    required String parentId,
   }) async {
     try {
       String url = mainUrl + "leavetypes/edit/$id";
       Map body = {
         "leave_type": name,
         "notes": note,
+        "duration": duration,
+        "parent_id": parentId
       };
       Response response = await apiProvider.put(url, body);
 

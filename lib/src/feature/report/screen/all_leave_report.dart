@@ -127,7 +127,7 @@ class _AllLeaveReportState extends State<AllLeaveReport> {
                     ),
                     _employeeBloc.reportLeave.length == 0
                         ? Container(
-                            child: Text("No data"),
+                            child: Text("${AppLocalizations.of(context)!.translate("no_data")!}"),
                           )
                         : Expanded(
                             child: SmartRefresher(
@@ -295,8 +295,8 @@ class _AllLeaveReportState extends State<AllLeaveReport> {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
                 controller.expanded
-                    ? "${AppLocalizations.of(context)!.translate("view")!}"
-                    : "${AppLocalizations.of(context)!.translate("hide")!}",
+                    ? "${AppLocalizations.of(context)!.translate("hide")!}"
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

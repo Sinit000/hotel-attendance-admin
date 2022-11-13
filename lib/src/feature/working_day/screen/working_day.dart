@@ -21,7 +21,8 @@ class WorkingDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: standardAppBar(context, "${AppLocalizations.of(context)!.translate("workday")!}"),
+      appBar: standardAppBar(
+          context, "${AppLocalizations.of(context)!.translate("workday")!}"),
       body: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10), child: Body()),
       floatingActionButton: Container(
@@ -64,7 +65,17 @@ class _BodyState extends State<Body> {
             );
           } else if (state is ErrorFetchingWorkingDay) {
             return Center(
-              child: Text(state.error.toString()),
+              child: TextButton(
+                  onPressed: () {
+                    workingDayBloc.add(InitializeWorkingdayStarted());
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
             );
           } else {
             if (workingDayBloc.departmentList.length == 0) {

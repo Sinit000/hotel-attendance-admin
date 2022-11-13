@@ -88,9 +88,19 @@ class _BodyState extends State<Body> {
                 width: 200, height: 200),
           );
         } else if (state is ErrorFetchingHoliday) {
-          return Center(
-            child: Text(state.error.toString()),
-          );
+         return Center(
+              child: TextButton(
+                  onPressed: () {
+                    holidayBloc.add(InitializeHolidayStarted(isRefresh: false));
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.teal,
+                    onSurface: Colors.grey,
+                  ),
+                  child: Text(
+                      "${AppLocalizations.of(context)!.translate("retry")!}")),
+            );
         } else {
           if (holidayBloc.holidaylist.length == 0) {
             return Center(

@@ -91,7 +91,8 @@ class _EmployeeLeaveReportState extends State<EmployeeLeaveReport> {
                         backgroundColor: Colors.teal,
                         onSurface: Colors.grey,
                       ),
-                      child: Text("Retry")),
+                      child: Text(
+                          "${AppLocalizations.of(context)!.translate("retry")!}")),
                 );
               } else {
                 print(employeeBloc.dateRange);
@@ -434,8 +435,8 @@ class _EmployeeLeaveReportState extends State<EmployeeLeaveReport> {
               var controller = ExpandableController.of(c, required: true)!;
               return Text(
                 controller.expanded
-                    ? "${AppLocalizations.of(context)!.translate("view")!}"
-                    : "${AppLocalizations.of(context)!.translate("hide")!}",
+                    ? "${AppLocalizations.of(context)!.translate("hide")!}"
+                    : "${AppLocalizations.of(context)!.translate("view")!}",
                 style: Theme.of(context).textTheme.bodyText1,
               );
             },

@@ -91,12 +91,24 @@ class _DepartmentBodyState extends State<DepartmentBody> {
           );
         } else if (state is ErrorFetchingDepartment) {
           return Center(
-            child: Text(state.error.toString()),
+            child: TextButton(
+                onPressed: () {
+                  departmentBlc
+                      .add(InitializeDepartmentStarted(isRefresh: false));
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.teal,
+                  onSurface: Colors.grey,
+                ),
+                child: Text(
+                    "${AppLocalizations.of(context)!.translate("retry")!}")),
           );
         } else {
           if (departmentBlc.departmentList.length == 0) {
             return Center(
-              child: Text("No Data"),
+              child: Text(
+                  "${AppLocalizations.of(context)!.translate("no_data")!}"),
             );
           }
           print("length ${departmentBlc.departmentList.length}");

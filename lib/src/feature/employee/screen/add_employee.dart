@@ -742,7 +742,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                                             left: 14.0,
                                           ),
                                           labelText:
-                                              "${AppLocalizations.of(context)!.translate("submit")!}"),
+                                              "${AppLocalizations.of(context)!.translate("minor_children")!}"),
                                     ),
                                     SizedBox(height: 15),
                                     GestureDetector(
